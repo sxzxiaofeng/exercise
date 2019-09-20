@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        html, body, #app {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 150px;
+            height: 150px;
+            background: #98a;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="box"></div>
+</div>
+<script src="./js/transformCSS.js"></script>
+<script src="./js/gesture.js"></script>
+<script src="https://cdn.bootcss.com/vConsole/3.3.2/vconsole.min.js"></script>
+<script>
+    var app = document.querySelector('#app');
+    var box = document.querySelector('#box');
+    new VConsole;
+
+    app.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        // e.touches[0].clientX;
+    });
+
+    //绑定事件
+    gesture(box, {
+        start: function (e) {
+            //获取当前的触点间距
+            this.dis1 = getDistance(e.targetTouches[0], e.targetTouches[1]);
+            //获取当前状态下的元素的显示比例
+            this.originScale = transformCSS(box, 'scale');
+
+            //获取box元素当前的旋转角度
+            this.rotate = transformCSS(box,'rotate');
+        },
+        change: function (e) {
+            // origin  1  1.2   1.2 * 1.3  1.56 * 1
+            //获取两个触点的间距  2  *  0.9  =>  1.8
+            //计算两点的距离
+            this.dis2 = getDistance(e.targetTouches[0], e.targetTouches[1]);
+            //计算比例
+            var scale = this.dis2 / this.dis1;
+            //设置显示比例
+            transformCSS(box, 'scale', scale * this.originScale);
+            //计算手势变化后所形成的夹角
+            //计算两个手指形成的夹角
+            //在原来角度的基础上 增加该角度差
+            var newDegreee = this.rotate + e.rotation;// e.rotation
+            //设置旋转角度
+            transformCSS(box, 'rotate', newDegreee);
+        },
+        end: function () {
+            //获取当前状态下的元素的显示比例
+            // this.originScale = transformCSS(box,'scale');
+        }
+    })
+
+    //获取两个触点之间的距离
+    function getDistance(p1, p2) {
+        var disX = p1.clientX - p2.clientX;
+        var disY = p1.clientY - p2.clientY;
+
+        //计算两点的距离
+        return Math.sqrt(disX * disX + disY * disY);
+    }
+
+    //获取两个触点形成的夹角  单位为 角度
+    function getDegree(p1, p2) {
+        //计算两个手指形成的夹角
+        var disX = p2.clientX - p1.clientX;
+        var disY = p2.clientY - p1.clientY;
+        var hudu = Math.atan2(disY, disX); // 弧度  ->  角度       2πR = 周长   2π弧度  == 360度    1弧度 = 180/π
+        return hudu * 180 / Math.PI;
+    }
+
+</script>
+</body>
+</html>

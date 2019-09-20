@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style:none;
+        }
+        html,body,#app{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+        #box{
+            width:100%;
+            height:200px;
+            background:#98a;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="box"></div>
+    </div>
+    <script>
+        var app = document.querySelector('#app');
+        var box = document.querySelector('#box');
+
+        app.addEventListener('touchstart', function(e){
+            e.preventDefault();
+        })
+
+        box.addEventListener('gesturestart', function(){
+            box.style.background = 'red';
+        });
+
+        box.addEventListener('gesturechange', function(e){
+            box.style.background = 'yellow';
+            // box.innerHTML = Math.random();
+
+            // box.innerHTML = e.rotation;///手势的旋转角度   弧度
+            // box.innerHTML = e.scale;//手势间的距离变化 比例
+        });
+
+        box.addEventListener('gestureend', function(){
+            box.style.background = 'blue';
+            box.innerHTML = 'gestureend';
+        });
+
+        box.addEventListener('touchend', function(){
+            box.style.background = 'green';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟实现</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style:none;
+        }
+        html,body,#app{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+        #box{
+            width:100%;
+            height:200px;
+            background:#98a;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="box"></div>
+    </div>
+    <script>
+        var app = document.querySelector('#app');
+        var box = document.querySelector('#box');
+
+        app.addEventListener('touchstart', function(e){
+            e.preventDefault();
+        });
+
+        //模拟 gesturestart 事件   touches
+        box.addEventListener('touchstart', function(e){
+            //检测当前屏幕上的触点个数
+            if(e.touches.length >= 2){
+                //这里编写 gesturestart 的事件处理程序
+                box.style.background = 'red';
+            }
+        });
+
+        //模拟gesturechange 事件
+        box.addEventListener('touchmove', function(e){
+            if(e.touches.length >= 2){
+                //编写的是 gesturechange 的事件处理程序
+                box.style.background = 'yellow';
+                box.innerHTML = Math.random();
+            }
+        });
+
+        //模拟 gestureend 事件
+        box.addEventListener('touchend', function(e){
+            if(e.touches.length < 2){
+                box.style.background = 'blue';
+            }
+        });
+
+    </script>
+</body>
+</html>

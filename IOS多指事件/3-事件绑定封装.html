@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟实现</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style:none;
+        }
+        html,body,#app{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+        #box{
+            width:100%;
+            height:200px;
+            background:#98a;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="box"></div>
+    </div>
+    <script>
+        var app = document.querySelector('#app');
+        var box = document.querySelector('#box');
+
+        app.addEventListener('touchstart', function(e){
+            e.preventDefault();
+        });
+
+        /*
+            函数
+            gesture
+
+            使用示例
+            gesture(box, 'gesturestart', function(){
+                box.style.background = 'red';
+            });
+
+            gesture(box, 'gesturechange', function(){
+                box.style.background = 'yellow';
+            });
+
+            gesture(box, 'gestureend', function(){
+                box.style.background = 'blue';
+            });
+         */
+        function gesture(node, type, callback){
+            //创建检测变量
+            var isToggleGesturestart = false;
+
+            node.addEventListener('touchstart', function(e){
+                if(e.touches.length >= 2){
+                    //执行对应的事件处理程序  gesturestart 事件
+                    if(type === 'gesturestart'){
+                        callback();
+                        isToggleGesturestart = true;
+                    }
+                }
+            });
+
+            node.addEventListener('touchmove', function(e){
+                if(e.touches.length >= 2){
+                    //执行对应的事件处理程序  gesturestart 事件
+                    if(type === 'gesturechange'){
+                        callback();
+                    }
+                }
+            });
+
+            node.addEventListener('touchend', function(e){
+                if(e.touches.length < 2 && isToggleGesturestart){
+                    //执行对应的事件处理程序  gesturestart 事件
+                    if(type === 'gestureend'){
+                        callback();
+                    }
+                    isToggleGesturestart = false;
+                }
+            });
+        }
+
+        gesture(box, 'gesturestart', function(){
+            box.style.background = 'red';
+        });
+
+        gesture(box, 'gesturechange', function(){
+            box.style.background = 'yellow';
+            box.innerHTML = '手势改变中.......';
+        });
+
+        gesture(box, 'gestureend', function(){
+            box.style.background = 'blue';
+            box.innerHTML = '手势结束';
+        });
+    </script>
+</body>
+</html>
