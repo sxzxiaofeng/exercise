@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show{
+            margin: 100px auto;
+            font-size: 30px;
+            color: #000;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background: #56bda1;
+        }
+    </style>
+</head>
+<body>
+<p id="show">Hello World!</p>
+<script>
+    var oShow = document.getElementById("show");
+    //检测网络
+ /*   if(window.navigator.onLine){
+        oShow.style.backgroundColor = "pink";
+        oShow.textContent = "网络很稳定";
+        // console.log(window.navigator.onLine);//返回布尔值，网络正常连接返回true
+    }else {
+        oShow.textContent = "哦哦，网络走丢了";
+        oShow.style.backgroundColor = "gray";
+    }*/
+
+    //监测网络，对window对象绑定事件，在网络状态改变的一瞬间触发
+       window.addEventListener("online",function () {
+           oShow.style.backgroundColor = "pink";
+           oShow.textContent = "网络很稳定";
+       })
+
+       window.addEventListener("offline",function () {
+           oShow.textContent = "哦哦，网络走丢了";
+           oShow.style.backgroundColor = "gray";
+       })
+
+</script>
+</body>
+</html>

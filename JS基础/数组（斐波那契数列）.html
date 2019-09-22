@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //打印斐波那契数列，1,2，3,5,8,13,21...后面一个数是前面两个数的和
+        //给数组两个初始值
+        var arr = [1,2];
+        //for循环遍历下标为2到99之间的数
+        for(var i=2; i<100; i++){
+            //把符合要求的值添加进arr数组
+            arr[i] = arr[i-2] + arr[i-1];
+        }
+        console.log(arr);
+    </script>
+</body>
+</html>

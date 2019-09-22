@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../JS/my.js"></script>
+</head>
+<style>
+    #warp{
+        width: 1000px;
+        height: 600px;
+        margin: 50px auto;
+    }
+    #small{
+        width: 330px;
+        height: 400px;
+        float: left;
+        border: 1px solid #000;
+        position: relative;
+    }
+    #small img{
+        width: 330px;
+        height: 400px;
+    }
+    #move{
+        width: 100px;
+        height: 100px;
+        /*//设置透明度为0.5，背景白色*/
+        background-color: rgba(255,255,255,.5);
+        cursor: move;
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    #big{
+        width: 500px;
+        height: 500px;
+        /*浮动常和相对定位一起使用，设置浮动后不能设置绝对定位，绝对定位会使浮动元素失效*/
+        float: left;
+        position: relative;
+        border: 1px solid #000;
+        /*设置超出隐藏*/
+        overflow: hidden;
+        display: none;
+    }
+    #big #bigImg{
+        width: 1000px;
+        height: 1000px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+<body>
+    <div id="warp">
+        <div id="small">
+            <img src="../../images/great.jpg" alt="">
+            <div id="move"></div>
+        </div>
+        <div id="big">
+            <img id="bigImg" src="../../images/great.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        var oSmall = my.getID("small");
+        var oMove = my.getID("move");
+        var oBig = my.getID("big");
+        var oBigImg = my.getID("bigImg");
+        // 给small绑定鼠标移入事件
+        oSmall.onmouseenter = function () {
+            //鼠标移入让move和大图显示
+            oMove.style.display = "block";
+            oBig.style.display = "block";
+            //定义一个对象来保存Move的坐标
+            var movePoint = {
+                left:0,
+                top:0
+            };
+            //给small绑定鼠标移动事件
+            oSmall.onmousemove = function (ev) {
+                //获取移动块的坐标位置,X轴left距离等于，当前元素离窗口可视化区域距离减去当前元素离文档边缘距离，
+                //再减去自身宽度的一半
+
+                var ev = ev ||window.event;
+                movePoint.left = ev.clientX - my.getEleToDoc(oSmall).left-oMove.offsetWidth/2;
+
+                movePoint.top = ev.clientY - my.getEleToDoc(oSmall).top-oMove.offsetHeight/2;
+
+                // console.log("left值："+movePoint.left);
+                // console.log("top值："+movePoint.top);
+
+                //判断临界值，让移动块在small区域内移动
+                if(movePoint.left <= 0){
+                    movePoint.left = 0;
+                }
+                else if(movePoint.left >= oSmall.clientWidth-oMove.offsetWidth){
+                    movePoint.left = oSmall.clientWidth-oMove.offsetWidth;
+                }
+
+                if(movePoint.top <= 0){
+                    movePoint.top = 0;
+                }
+                else if(movePoint.top >= oSmall.clientHeight-oMove.offsetHeight){
+                    movePoint.top = oSmall.clientHeight-oMove.offsetHeight;
+                }
+                //给move移动块赋值
+                oMove.style.left = movePoint.left + "px";
+                // console.log(movePoint.left);
+                oMove.style.top = movePoint.top + "px";
+
+                //计算比列
+                var scaleX = movePoint.left/(oSmall.clientWidth-oMove.offsetWidth);
+                var scaleY = movePoint.top/(oSmall.clientHeight-oMove.offsetHeight);
+
+                //计算大图移动距离并赋值
+                oBigImg.style.left = - scaleX*(oBigImg.offsetWidth-oBig.clientWidth) + "px";
+                oBigImg.style.top = - scaleY*(oBigImg.offsetHeight-oBig.clientHeight) + "px";
+            }
+        }
+            //鼠标移出让移动块和图片隐藏
+            oSmall.onmouseleave = function () {
+                oMove.style.display = "none";
+                oBig.style.display = "none";
+            }
+    </script>
+</body>
+</html>

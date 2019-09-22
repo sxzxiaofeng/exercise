@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--/*
+当用户输入完成敲击回车按键的时候。如果用户输入的都是11为纯数字  那么就让用户提交  否则不提交
+*/-->
+
+    <form action="http://www.baidu.com" id="table">
+        请输入你的手机号：
+        <input type="text" id="ipt">
+    </form>
+    <script>
+        var oIpt = document.getElementById("ipt");
+        var oTable = document.getElementById("table");
+        oIpt.onkeydown = function (ev) {
+            var ev = ev || window.event;
+            //13是回车键的键码
+            if(ev.keyCode==13){
+                if(this.value.length==11 &&!isNaN(this.value)){
+                    alert("输入正确");
+                }
+                else{
+                    alert("重新输入");
+                    //阻止默认事件
+                    return false;
+                    //阻止默认事件方法2
+                    // ev.preventDefault?ev.preventDefault():ev.returnValue = false;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

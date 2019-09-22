@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="../../css/reset.css">-->
+    <style>
+        *{
+            /*去掉li标签的默认样式*/
+            list-style: none;
+            /*去掉h标签的默认间距*/
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            /*给最外层的ul一个相对浏览器定位*/
+            position: fixed;
+            right: 0;
+            top: 200px;
+        }
+        #box li{
+            /*给li标签一个相对定位，让它成为里面子元素的包含块*/
+            position: relative;
+            /*给li标签一个下margin，让li标签上下之间有一定的距离*/
+            margin-bottom: 30px;
+        }
+        #box li h2{
+            /*给所有的h标签设置一个样式*/
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: cadetblue ;
+            font-size: 14px;
+            /*给h标签一个相对定位*/
+            position: relative;
+            /*给h标签一个z-index值为2，让它在p标签上面显示*/
+            z-index: 2;
+            cursor: pointer;
+        }
+        #box li p{
+            width: 120px;
+            height:40px;
+            background-color: #666666;
+            font-size: 16px;
+            text-align: center;
+            line-height: 40px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <ul id="box">
+        <li>
+            <h2>反馈</h2>
+            <p>我的反馈</p>
+        </li>
+        <li>
+            <h2>反馈</h2>
+            <p>我的反馈</p>
+        </li>
+        <li>
+            <h2>反馈</h2>
+            <p>我的反馈</p>
+        </li>
+    </ul>
+    <script>
+        var oBox = document.getElementById("box");
+        var oLis = oBox.getElementsByTagName("li");
+        var oH2s = oBox.getElementsByTagName("h2");
+        var oPs = oBox.getElementsByTagName("p");
+        //初始化一个变量，将来用来设置计时器
+        var timer = null;
+        //初始化一个变量，用来保存p标签的left值
+        var conLeft = 0;
+        //给li标签绑定鼠标移入事件，给h标签p标签绑定都不合适
+        /*for(var i=0; i<oLis.length; i++){
+            //i不能直接传进去，因为事件和计时器都是异步代码，等同步代码for循环执行完才会执行异步，i进去始终都是4
+            //给li标签设置一个下标
+            oLis[i].index = i;
+            oLis[i].onmouseenter = function () {
+                clearInterval(timer);
+                //定义一个变量来保存当前this做一个转换，计时器里的this指向的是window
+                var _this = this;
+                //设置一个计时器，让p标签出来的速度快点
+                timer = setInterval(function () {
+                    //先清除计时器，不然计时器会叠加，p标签移出速度会加快不稳定
+                    conLeft--;
+                    if(conLeft <= -120){
+                        conLeft = -120;
+                        //给p标签的left赋值后，要清掉计时器，不然鼠标移出时p标签进不去
+                        clearInterval(timer);
+                    }
+                    oPs[_this.index].style.left = conLeft + "px";
+                },1);
+            }
+            oLis[i].onmouseleave = function () {
+                var _this = this;
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    conLeft++;
+                    if(conLeft >= 0){
+                        conLeft = 0;
+                        clearInterval(timer);
+                    }
+                    oPs[_this.index].style.left = conLeft + "px";
+                },1)
+            }
+        }*/
+
+        /*程序优化，因为以上事件的效果都共用了一个conLeft和timer，所以会有bug，封装一个函数，把它们隔离开，让它们         各自使用各自的*/
+        //把li标签的下标i当做函数的参数传进去
+        function fn(i) {
+                var conLeft = 0;
+                var timer = null;
+                oLis[i].index = i;
+                oLis[i].onmouseenter = function () {
+                    clearInterval(timer);
+                    //定义一个变量来保存当前this做一个转换，计时器里的this指向的是window
+                    var _this = this;
+                    //设置一个计时器，让p标签出来的速度快点
+                    timer = setInterval(function () {
+                        conLeft--;
+                        if(conLeft <= -120){
+                            conLeft = -120;
+                            //给p标签的left赋值后，要清掉计时器，不然鼠标移出时p标签进不去
+                            clearInterval(timer);
+                        }
+                        oPs[_this.index].style.left = conLeft + "px";
+                    },1);
+                }
+                oLis[i].onmouseleave = function () {
+                    var _this = this;
+                    clearInterval(timer);
+                    timer = setInterval(function () {
+                        conLeft++;
+                        if(conLeft >= 0){
+                            conLeft = 0;
+                            clearInterval(timer);
+                        }
+                        oPs[_this.index].style.left = conLeft + "px";
+                    },1)
+                }
+        }
+        //用for循环来调用函数fn
+        for(var i=0; i<oLis.length; i++){
+            fn(i);
+        }
+    </script>
+</body>
+</html>

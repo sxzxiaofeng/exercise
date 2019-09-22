@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var str = "adgfjikeleag";
+    //用split方法把字符串分割，返回一个数组
+    var arr = str.split("");
+    //用reverse方法把数组倒序排列，reverse方法直接对原数组进行倒序操作，不会返回新的数组
+    // var returnArr = arr.reverse();
+    arr.reverse();
+    //用join方法把倒序后的数组转换成字符串
+    var newArr = arr.join("");//如果不加引号，默认以逗号隔开
+    console.log(newArr);
+</script>
+</body>
+</html>

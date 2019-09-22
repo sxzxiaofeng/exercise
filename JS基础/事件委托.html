@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /**{*/
+        /*    list-style: none;*/
+        /*}*/
+    </style>
+</head>
+<button id="btn">添加新元素</button>
+<body>
+    <div id="box">
+        <ul id="con">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        var oBox = document.getElementById("box");
+        var oCon = document.getElementById("con");
+        var oLis = oCon.getElementsByTagName("li");
+        var oBtn = document.getElementById("btn");
+        oBtn.onclick = function(){
+            var newLi = document.createElement("li");
+            newLi.innerHTML = "Hello World";
+            oCon.appendChild(newLi);
+        };
+
+      /*  for(var i = 0; i<oLis.length; i++){
+            oLis[i].onclick = function () {
+                this.style.backgroundColor = "blue";
+            }
+        }*/
+      //    事件委托：自己不做，让父级元素或祖辈元素去做
+      //   原理：冒泡
+        // 优点：1，给未来元素绑定事件 2，避免使用for循环，提高效率
+        oBox.onclick = function (ev) {
+            var ev = ev || window.event;
+            ev.target.style.backgroundColor = "pink";
+        }
+    </script>
+</body>
+</html>

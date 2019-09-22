@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //封装一个栈操作的一个类  想要使用 直接new 实例化
+    // 实例化得到的对象 就会拥有这些方法
+    function Stack() {
+        this.arr = [];
+        this.push = function (item) {
+            this.arr.push(item);
+        };
+        this.pop = function () {
+            return this.arr.pop();
+        };
+        this.peek = function () {
+            return this.arr[this.arr.length - 1];
+        };
+        this.isEmpty =function () {
+            return this.arr.length == 0;
+        };
+        this.clear = function () {
+            this.arr = [];
+        };
+        this.size = function () {
+            return this.arr.length;
+        };
+    }
+    function divideby2(num,para) {
+            //实例化一个封装好的对象
+            var remStack = new Stack();
+           //定义一个变量用来保存取余后的余数
+            var rem;
+            //定义一个变量用来保存转换后的结果
+            var binaryString = "";
+            //定义一个变量保存十六进制字符串，因为十六制没有11-15的数
+            var str = "0123456789abcdef";
+            //循环插入栈，当num大于0时进入while循环
+            while(num>0){
+                //num表示要转换的数，para表示要转成几进制，把某个数转成几进制，就是用进制数对该数进行求余取模
+//                比如把10转成二进制数：10%2
+                rem = parseInt(num%para);//对传入的参数num取模，保存好余数
+                //把循环每次得到的余数push到实例化的对象中
+                remStack.push(rem);
+                //把两数相除的结果商保存起来，继续取模
+                num = parseInt(num/para);
+            }
+            //全部插入完成后，对栈进行移出操作，不为空才进入循环
+            while (!remStack.isEmpty()){
+               /* 把栈里的元素移出，并进行字符串拼接,中括号里的内容当做字符串str的索引下标，当出现11-15的数字时，转                 化成a-f*/
+                binaryString += str[remStack.pop()];
+            }
+            //返回转换好的结果
+            return binaryString;
+    }
+    console.log( divideby2(255,16));
+</script>
+</body>
+</html>

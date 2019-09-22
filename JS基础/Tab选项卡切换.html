@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #outer{
+            width: 606px;
+            margin: 0 auto;
+            border: 1px solid #000;
+        }
+        #title{
+            overflow: hidden;
+        }
+        #title h3{
+            width: 200px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            float: left;
+            border: 1px solid #000000;
+        }
+        #content{
+            overflow: hidden;
+        }
+        #content li{
+            width: 606px;
+            height: 400px;
+            text-align: center;
+            line-height: 400px;
+            float: left;
+            display: none;
+        }
+        #title .active{
+            background-color: red;
+            color: #ffffff;
+        }
+        #content .show{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="title">
+        <h3 class="active">热点新闻</h3>
+        <h3>体育赛事</h3>
+        <h3>最新电影</h3>
+    </div>
+    <ul id="content">
+        <li class="show">内容一</li>
+        <li>内容二</li>
+        <li>内容三</li>
+    </ul>
+    <script>
+        //先获取ID名
+        oTitle = document.getElementById("title");
+        oContent = document.getElementById("content");
+
+        //通过ID名获取标签，限制范围为该ID名里的标签
+        oActive = oTitle.getElementsByTagName("h3");
+        oLis = oContent.getElementsByTagName("li");
+        //分别给3个标题标签绑定点击事件
+ /*       oActive[0].onclick = function () {
+            oLis[0].className = "show";
+            oLis[1].className = "";
+            oLis[2].className = "";
+
+            oActive[0].className = "active";
+            oActive[1].className = "";
+            oActive[2].className = "";
+        }
+        oActive[1].onclick = function () {
+            oLis[1].className = "show";
+            oLis[0].className = "";
+            oLis[2].className = "";
+
+            oActive[1].className = "active";
+            oActive[0].className = "";
+            oActive[2].className = "";
+        }
+        oActive[2].onclick = function () {
+            oLis[2].className = "show";
+            oLis[1].className = "";
+            oLis[0].className = "";
+
+            oActive[2].className = "active";
+            oActive[1].className = "";
+            oActive[0].className = "";
+        }*/
+//        程序优化，方法二（思路判断用户当前点击的是哪个标题，点击哪个就把类名给他，清空剩下的元素的类名）
+        //外层for循环分别给标题绑定点击事件
+          for(var i=0; i<oActive.length; i++){
+    //            里层for循环用来循环遍历h标签，点击的是哪个标签就把类名给谁，否则就清空类名
+            oActive[i].onclick = function (){
+                for(var i=0; i<oActive.length; i++){
+
+                    if(oActive[i] == this){
+                        oActive[i].className = "active";
+                        oLis[i].className = "show";
+                    }
+                    else{
+                        oActive[i].className = "";
+                        oLis[i].className = "";
+                }
+            }
+        }
+      }
+//        console.log(typeof this)this是对象
+/*
+        //程序优化，方法三（不管用户点击的哪个标题，先清空所有标题元素的类名，再判断用户当前点击的是哪个，就把        类名赋值给该标题元素）
+
+        for(var i=0; i<oActive.length; i++){
+            //js目前没有方法获取一个元素在它父级中的下标
+            //给li元素的this对象添加一个index属性，用来获取li元素的下标
+            oLis[i].index = i;
+            oActive[i].onclick = function () {
+                for(var i=0; i<oActive.length; i++ ){
+                    //先通过for循环清空所有标题元素的类名,清除样式
+                    oActive[i].className = "";
+                    oLis[i].className = "";
+                }
+                //this对象指向当前(h3标题)函数oActive,把类名给选中的标题
+                //console.log(className);
+                this.className = "active";
+                oLis[this.index].className = "show";
+            }
+        }
+*/
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+   /*     #box{
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            position: fixed;
+            left: 20px;
+            top: 300px;
+        }*/
+        .show{
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            position: fixed;
+            left: 20px;
+            top: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    </div>
+    <script>
+      /*     var timer=null;
+            var degree = 0;
+            oBox = document.getElementById("box");
+            timer = setInterval(function () {
+                degree++;
+                oBox.style.left = degree+20+"px";
+                //求角度的sin值，把值赋给div的top
+                oBox.style.top = 300+Math.sin(degree*Math.PI*2/360)*100+"px";
+            },30)*/
+            //曲线运动轨迹版
+                  var timer=null;
+                  var degree = 0;
+                  oBox = document.getElementById("box");
+                  timer = setInterval(function () {
+                  degree++;
+                //创建一个新的div
+                 newBox = document.createElement("div");
+                   //给div一个类名，方便是设置样式
+                      newBox.className = "show";
+                  //把div插入到body中
+                  document.body.appendChild(newBox);
+                  newBox.style.left = degree+20+"px";
+                  //求角度的sin值，把值赋给div的top
+                  newBox.style.top = 300+Math.cos(degree*Math.PI*2/360)*100+"px";
+                      //给sin值取个绝对值，让它只有正整数
+//                      newBox.style.top = 300+Math.abs(Math.sin(degree*Math.PI*2/360)*100)+"px";
+          },10)
+    </script>
+</body>
+</html>

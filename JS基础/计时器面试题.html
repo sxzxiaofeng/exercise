@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    for(var i=0; i<5; i++)
+    {
+  /*      计时器和事件一样都是异步代码，让同步代码（for循环）执行完成以后，才会去执行异步代码，
+            当去执行异步代码的时候for已经执行完毕，i此时是5了*/
+        setTimeout(function(){
+        console.log(i);//返回结果 5,5,5,5,5
+        })
+    }
+ /*   2，修改上面的代码，让结果弹出0,1,2,3,4*/
+    for(var i=0; i<5; i++)
+    {
+        (function fn(i){
+            //只要在这个函数中出现i，那就不会使用for循环的i，形参i其实就是这个作用域的变量
+            setTimeout(function(){
+                console.log(i);//0,1,2,3,4
+            },0);
+         })(i);
+    }
+   /* for (var i = 0; i < 5; i++) {
+        (function fn(i) {
+            //只要在这个函数中 出现i  那么就不会去使用for循环的i
+            // 形参i 其实就是这个作用域的变量
+            setTimeout(function () {
+                console.log(i);
+            },0)
+        })(i);
+    }*/
+
+
+</script>
+</body>
+</html>

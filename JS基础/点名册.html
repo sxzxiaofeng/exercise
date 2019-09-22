@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点名册</title>
+</head>
+<style>
+    body{
+        background-color: #ffa600;
+    }
+    #con{
+            margin-top: 50px;
+            font-size: 60px;
+            text-align: center;
+       }
+       #contorl{
+           margin-top: 100px;
+           font-size: 50px;
+           text-align: center;
+           cursor: pointer;
+           color: red;
+       }
+       </style>
+       <body>
+       <div class="outer">
+           <h2 id="contorl">Start</h2>
+           <p id="con">开始点名</p>
+       </div>
+       <script>
+           var oStart = document.getElementById("contorl");
+           var oCon = document.getElementById("con");
+           var timer = null;
+           //定义一个开关控制按钮的变化
+           var flag = true;
+            function  num() {
+                var num = Math.floor(Math.random()*10);
+                return num;
+            }
+            function  roster() {
+                    timer = setInterval(function () {
+                        var arr = ["小王","小李","小赵","小郭","小邓","张三","李四","王五","赵六","小丽"];
+                        // var num = Math.floor(Math.random()*arr.length);
+                        // oCon.innerHTML = arr[num];
+                        oCon.innerHTML = arr[num()];
+                    },30)
+            }
+            oStart.onclick = function () {
+                if(flag){
+                    oStart.innerHTML = "stop";
+                    roster();
+                    flag = false;
+                }
+                else {
+                    oStart.innerHTML = "start";
+                    clearInterval(timer);
+                    flag = true;
+                }
+            }
+
+    </script>
+</body>
+</html>

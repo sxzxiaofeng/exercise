@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box"></div>
+    <script>
+        var newDate = new Date();
+        //封装一个加0的函数
+        function addZero(n) {
+            return n>10 ?n :0+n;
+        }
+        var g = newDate.getFullYear();
+        //月日时分秒小于两位数都要加0
+        var m = newDate.getMonth();
+             m = addZero(m);
+        var d= newDate.getDay();
+            d = addZero(d);
+        var h = newDate.getHours();
+            h = addZero(h);
+        var m = newDate.getMinutes();
+            m = addZero(m);
+        var s= newDate.getSeconds();
+            s = addZero(s);
+        var mil= newDate.getMilliseconds();
+            if(mil<10){
+                return 00+mil;
+            }
+            else if(mil<100){
+                return 0+mil;
+            }
+            else{
+                return mil;
+            }
+        oBox = document.getElementById("box");
+        var timer = setInterval(function () {
+            var nowTime = g + "年" + m + "月" + d + "日" +
+        })
+    </script>
+
+</body>
+</html>

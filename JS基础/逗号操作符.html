@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //逗号操作符：一条语句中可以执行多个操作
+
+    var num1 = 1,num2 = 2,num3 = 3;
+    console.log(num1,num2,num3);
+
+    //小括号的作用：1、提升优先级
+    //逗号操作符执行计算总会返回最后一项
+    var num4 = (4,5,6,7,8);
+    console.log(num4);
+
+    /*for (var i = 0; i < 3; i++) {
+        console.log(i);
+    }*/
+
+
+    //i < 2,j < 4  前边为false 后边为true  这条语句仍然返回true  因为是逗号操作符总会返回后边的值
+    for (var i = 0,j = 0; i < 2,j < 4; i++,j++) {
+        console.log(i+j);
+    }
+
+    //i < 2,j < 4  前边为true 后边为false  这条语句仍然返回false  因为是逗号操作符总会返回后边的值
+    for (var i = 0,j = 0; i < 4,j < 2; i++,j++) {
+        console.log(i+j);
+    }
+</script>
+</body>
+</html>

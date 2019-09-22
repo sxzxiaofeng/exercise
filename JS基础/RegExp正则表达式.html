@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <input type="text" id="ipt">
+</head>
+<body>
+<script>
+/*    var reg2= /\d/ ;
+   /!* \d是匹配所有的数字*!/
+    var str2="ab3er4b6b45" ;
+    console.log(str2.search(reg2));*/
+    var oIpt = document.getElementById("ipt");
+    oIpt.onchange = function () {
+       var userCon =  oIpt.value;
+       var newStr = "";
+       var reg1 =/\d/g;
+       do{
+           var a = reg1.exec(userCon);
+           if(a){
+               newStr += a[0];
+           }
+           else{
+               break;
+           }
+       }while (a);
+        console.log(newStr);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // indexOf 从前向后检测 检测某一项在数组中 是否出现  检测到一个以后就立马停止了
+    var arr = ["a","b","c","d","e","c","d","e"];
+    var a = "c";
+    //只传递一个参数  从第0项开始检测
+    var re = arr.indexOf(a);
+    console.log(re);
+
+    // 传递两个参数 第二个参数说明的是 从第几项的下标开始检测
+    var re = arr.indexOf(a,4);
+    console.log(re);
+
+    //如果检测不到？ 那么就返回-1
+    var b = "h";
+    var re1 = arr.indexOf(b);
+    console.log(re1);
+
+    // lastIndexOf 和 indexOf类似，indexOf是从前向后检测    lastIndexOf是从后向前检测
+    var arr = ["a","b","c","d","e","c","d","e"];
+    var a = "c";
+    //只传递一个参数  从第0项开始检测
+    var re = arr.lastIndexOf(a);//5
+    console.log(re);
+
+    // 传递两个参数 第二个参数说明的是 从第几项的下标开始检测
+    var re = arr.lastIndexOf(a,4);
+    console.log(re);//2
+
+    //如果检测不到？ 那么就返回-1
+    var b = "h";
+    var re1 = arr.lastIndexOf(b);//-1
+    console.log(re1);
+</script>
+</body>
+</html>

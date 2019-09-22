@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .outer{
+            height: 2000px;
+            overflow-y: scroll;
+            background-color: #5c6b71;
+        }
+        #box{
+            width: 100px;
+            height: 80px;
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            border-radius: 50%;
+            background-color: pink;
+            text-align: center;
+            line-height: 80px;
+            font-size: 16px;
+            /*让鼠标变成小手*/
+            cursor: pointer;
+        }
+    </style>
+    <script src="../../JS/my.js"></script>
+</head>
+<body>
+    <div class="outer">
+        <div id="box">回到顶部</div>
+    </div>
+    <script>
+        oBox = document.getElementById("box");
+        var timer = null;
+        oBox.onclick = function () {
+            //获取开始位置
+            var start = getWinScroll().top;
+            //设置结束位置
+            var end = 0;
+            //设置起始步
+            var startStep = 0;
+            //设置总步数,走完需要的步数
+            var endStep = 30;
+            //每一步走的距离等于总距离除以总步数
+            var everyStep = (end-start)/(endStep-startStep);
+          /*  进入计时器，让计时器每次都走everystep的距离，走endstep步，就可以走完了*/
+            timer = setInterval(function (){
+               /* 进入计时器让起始步加加*/
+                startStep ++;
+                //如果起始步大于等于总步数说明走完了全程
+                if(startStep >= endStep){
+                    //重新回到起点
+                    startStep = 0;
+                    //清除计时器
+                    clearInterval(timer);
+                }
+               else{
+                    //把走的每一步距离累加给开始位置start
+                    start += everyStep;
+                    //把得到的值赋值给竖向滚动条
+                    setWinYScroll(start);
+                }
+            },100)
+        }
+    </script>
+</body>
+</html>

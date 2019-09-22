@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚轮事件</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+</div>
+<script>
+    var oBox = document.querySelector(".box");
+    var x = 200;
+
+ /*   document.onmousewheel = function(ev) {
+        // console.log(ev.wheelDelta);
+
+        /!*
+        谷歌的滚轮事件,onmousewheel(DOM0级事件)
+            滚轮往上滚，ev.wheelDelta返回120
+            滚轮往下滚，ev.wheelDelta返回-120
+
+         火狐的滚轮事件，DOMMouseScroll(DOM2级事件)
+            滚轮往上滚，ev.detail返回-3
+            滚轮往下滚，ev.detail返回3
+        *!/
+        var ev = ev || window.event;
+        if(ev.wheelDelta > 0){
+            x += 5;
+        }else{
+            x -= 5;
+        }
+        oBox.style.height = x + "px";
+
+    }
+
+    oBox.addEventListener("DOMMouseScroll",function (ev) {
+        // console.log(ev.detail);
+        if(ev.detail > 0){
+            x -= 5;
+        }else{
+            x += 5;
+        }
+        oBox.style.height = x + "px";
+    })*/
+
+    //封装函数
+    function mouseScroll(ev) {
+        var ev = ev || window.event;
+        if(ev.wheelDelta){
+            if(ev.wheelDelta < 0){
+                x += 5;
+            }else{
+                x -= 5;
+            }
+        }else {
+            if(ev.detail > 0){
+                x += 5;
+            }else{
+                x -= 5;
+            }
+        }
+        oBox.style.height = x + "px";
+    }
+    document.onmousewheel = mouseScroll;
+    oBox.addEventListener("DOMMouseScroll",mouseScroll);
+</script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        li{
+            background-color: #6e6e6e;
+            margin-top: 5px;
+        }
+        .text{
+            width: 300px;
+            height: 200px;
+            background-color: #929292;
+            border: 1px solid #000000;
+            margin: 200px auto;
+        }
+        #con{
+            width: 300px;
+            height: 200px;
+            color: #017fcb;
+            text-align: center;
+            /*line-height: 200px;*/
+        }
+        #div{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<ul id="test">
+    <li id="one"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<input type="text">
+<input type="radio">
+<input type="checkbox">
+<input type="checkbox">
+<input type="password">
+
+<!--<div class="text">
+    <span id="con"></span>
+</div>-->
+
+<div id="div"></div>
+
+<script>
+   /* console.log(typeof isNaN);//返回function
+    console.log(isNaN(123));//返回false
+    console.log(1 == "1");//返回true*/
+
+    // var list =document.getElementsByTagName("li");
+  /*  var oOne = document.getElementById("one");
+    oOne.onclick = function () {
+        oOne[0].index = i;
+        console.log(i);
+    }*/
+
+ /* //方法一:给li元素扩展一个自定义属性index，保存它的下标，js目前没有方法获取到子元素在它父级中的下标
+    for(var i=0;i<list.length;i++){
+        list[i].index=i;
+        list[i].onclick=function () {
+            alert(this.index);
+        }
+    }*/
+
+    //方法二：闭包，闭包是链接内部函数和外部函数的一座桥梁，把下标i作为外部函数的实参传递进去，
+    // 再把结果通过内部函数return出来
+ /*   for(var i=0; i<list.length; i++){
+        list[i].onclick =(function(i){
+            return function () {
+                alert(i);
+            }
+        })(i);
+    }*/
+
+ //方法三：
+      /* var list=document.querySelectorAll("li");
+       document.querySelector("#test").onclick=function(ev){
+           for (var i = 0; i < list.length; i++) {
+               var li = list[i];
+               if(li==ev.target){
+                   alert(i);
+               }
+           }
+       };*/
+    //数组不排序去重，方法一
+   /* var arr = [2,5,8,12,34,45,8,6,6,23];
+    var newArr = [];//定义一个空数组，保存返回结果
+    arr.forEach(function (item,index) {
+        //遍历数组的每一项，用indexof检测空数组是否存在该项，不存在就把该项push到空数组里
+        //indexOf返回-1，表示未检索到
+        if(newArr.indexOf(item) == -1){
+            newArr.push(item);
+        }
+    });
+    console.log(newArr);*/
+
+//获取所有的CheckBox类型的文本框
+/*    var oIpt = document.getElementsByTagName("input");
+    var checkBoxList = [];
+    var len = oIpt.length;
+   // console.log(len);
+   while (len--){
+        // console.log(typeof (oIpt[len]));
+        if(oIpt[len].type == "checkbox"){
+            checkBoxList.push(oIpt[len]);
+        }
+    }
+   console.log(checkBoxList);*/
+
+// 将字符串var foo = "get-element-by-id"，转换成驼峰命名形式getElementById
+/*    var str = "get-element-by-id";
+    var newStr = str.split("-");//split方法返回的是一个数组
+   // console.log(newStr);
+   for(var i=0; i<newStr.length; i++){
+        newStr[i] = newStr[i].charAt(0).toUpperCase() + newStr[i].substr(1,newStr[i].length-1);
+    }
+   // console.log(newStr);
+    var result = newStr.join("");
+    console.log(result);*/
+
+   //JS实现随机选取10-100之间的10个数字，存入一个数组，并排序
+ /*  var arr = [];//定义一个空数组存放数据
+   for(var i=0; i<10; i++){
+//获取10个10-100之间的随机数，每次只能生成一个，用循环执行10次
+       var num = Math.abs(Math.floor(Math.random()*90+10));
+//把每次生成的随机数push到数组里，push方法把参数逐个添加到数组末尾，改变了原数组，返回插入后数组的长度
+       arr.push(num);
+   }
+   //对新的数组进行升序排列
+   arr.sort(function (a, b) {
+       return a-b;
+   });
+   console.log(arr);*/
+
+   /* c = 5;
+    function test(){
+        window.c = 3;
+        console.log(c);//返回undefined，c是局部变量，未赋值
+        var c;
+        console.log(window.c);//返回3，这里c是全局变量
+    }
+    test();
+
+   var b = 2;
+   function test2(){
+       window.b = 3;
+       console.log(b);
+   }
+   test2();//返回3*/
+
+   /* var oText = document.querySelector(".text");
+    var oCon = document.querySelector("#con");
+    var str = "嘿！你好啊！我是你的私人秘书seri";
+    var newStr = str.split("");
+
+    // console.log(newStr[i].substr(0, 1));
+
+
+       for(var i=0; i<newStr.length; i++){
+           (function(i){
+               setTimeout(function(){
+                   // if(newStr[i].length > 0){
+                       // newStr[i] = newStr[i].substr(0,1);
+                       oCon.innerHTML += newStr[i].slice(0,1);
+                       // console.log(i);
+                   // }
+               },400*i)
+           })(i);
+
+       }*/
+
+
+      /*      newStr.forEach(function (item,index,array) {
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    console.log(newStr);
+                    while(newStr.length--) {
+                       oCon.innerHTML += item;
+                   }
+                },400)
+       })*/
+
+        for(var i=0; i<5; i++){
+            /* setTimeout(function() {
+                console.log(new Date,i);
+        },1000)*/
+            (function (i){
+                setTimeout(function() {
+                    console.log(new Date,i);
+                })
+            })(i);
+        }
+        console.log(new Date,i);
+
+
+     /*  for(var i = 0; i < 5; i++) {
+           try {
+               throw(i);
+           } catch(i) {
+               setTimeout(function () {
+                   console.log(new Date,i);
+               });
+           }
+       }
+   console.log(new Date, i);*/
+
+   /*  function reverseString(str) {
+           var newStr = str.split("");
+            newStr.reverse();
+            newStr.join("");
+            return newStr;
+           // console.log(arr);
+       }*/
+
+
+      /* var str = "abcdefghijklmn";
+       function reverseString(str) {
+           var newStr = str.split("").reverse().join("");
+            return newStr;
+           // console.log(newStr);
+       }
+
+   console.log(reverseString(str));
+*/
+   /*
+              //要求输出今天是星期几
+              //定义一个星期字符串
+              var str="星期日,星期一,星期二,星期三,星期四,星期五,星期六";
+              //创建一个日期对象
+              var today=new Date();
+              //使用today对象的getDay()方法
+              var week=today.getDay();
+               // console.log(week);
+               //将星期字符串分割成一个数组
+              var arr=str.split(",");
+              document.write("类型是："+typeof(arr)+"，数组的第一个元素是："+arr[0]+"<br />");
+              //输出结果
+              document.write("今天是："+arr[week]);
+
+    */
+
+           // http://www.baidu.com?username=xiaowang&password=12345&age=18&sex=女&score=90
+           // {username:"xiaowang",password:12345,age:18,sex:"女",score:90}
+
+        /*   var url = "http://www.baidu.com?username=xiaowang&password=12345&age=18&sex=女&score=90";
+           var obj = {};
+           var strArr = url.split("?");
+           //console.log(strArr[1]);//username=xiaowang&password=12345&age=18&sex=女&score=90
+           var strArr2 = strArr[1].split("&");
+
+           // console.log(strArr2);//["username=xiaowang", "password=12345", "age=18", "sex=女", "score=90"]
+           for (var i = 0; i < strArr2.length; i++) {
+             // strArr2[i].split("=")//["username","xiaowang"]
+               obj[strArr2[i].split("=")[0]] = strArr2[i].split("=")[1];
+           }*/
+           // console.log(obj);//{username: "xiaowang", password: "12345", age: "18", sex: "女", score: "90"}
+
+     /*   var oDiv = document.getElementById("div");
+       function show(){
+           console.log(this);
+       }
+       var arr=[1,2,3];
+       arr.a=show;
+       setTimeout(arr.a,100);
+        //window
+       arr.a();//arr
+       var fn1=arr.a;
+       oDiv.onclick=function(){
+           arr.a();
+           fn1();
+       }*/
+</script>
+</body>
+</html>

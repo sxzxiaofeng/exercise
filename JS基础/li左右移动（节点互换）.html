@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px auto;
+            padding: 0;
+            list-style: none;
+        }
+        #outer{
+            width: 504px;
+            height: 400px;
+            border: 1px solid #000;
+            overflow: hidden;
+        }
+         #con1{
+            width: 200px;
+             height: 400px;
+             float: left;
+             border: 1px solid #000;
+        }
+        #con2{
+            width: 200px;
+            height: 400px;
+            border: 1px solid #000;
+            float: right;
+        }
+
+        #con1 li{
+            background-color: #9e3caa;
+            width: 200px;
+            height: 30px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #con2 li{
+            background-color: #ff0022;
+            width: 200px;
+            height: 30px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .contorls{
+            width: 100px;
+            height: 400px;
+            background-color: #3c3c3c;
+            float: left;
+            text-align: center;
+        }
+       #con1 .show,#con2 .show{
+            background-color: #7c7c7c;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+            <ul id="con1" >
+                <li>1,红烧肉</li>
+                <li>2，北京烤鸭</li>
+                <li>3，牛肉火锅</li>
+                <li>4，鳗鱼饭</li>
+                <li>5，红烧鱼</li>
+            </ul>
+     <div class="contorls">
+         <button id="left">左移</button>
+         <button id="right">右移</button>
+     </div>
+            <ul id="con2" >
+                <li>1，梅菜扣肉</li>
+                <li>2，西湖醋鱼</li>
+                <li>3，日式烤肉</li>
+                <li>4，韩国烤肉</li>
+                <li>5，蒸汽海鲜</li>
+            </ul>
+    </div>
+    <script>
+        //获取对应的ID名
+        oCon1 = document.getElementById("con1");
+        oLisl = oCon1.getElementsByTagName("li");
+        oCon2 = document.getElementById("con2");
+        oLisr = oCon2.getElementsByTagName("li");
+        oBleft = document.getElementById("left");
+        oBright = document.getElementById("right");
+
+        //for循环遍历左边的li标签，给所有的标签绑定点击事件
+        for(var i=0; i<oLisl.length; i++){
+            oLisl[i].onclick = function () {
+                //给当前选中的元素设置自定义属性
+                this.setAttribute("change","true");
+                //给被选中的元素一个背景颜色样式
+                this.className = "show";
+            }
+        }
+        //给右边的按钮绑点点击事件
+        oBright.onclick = function () {
+            //遍历所有左边的li标签
+            for(var i=0; i<oLisl.length; i++){
+                //如果元素有自定义属性，则说明是要往右边移动的元素
+                if(oLisl[i].getAttribute("change")){
+                    //清除选中元素的样式
+                    oLisl[i].className = "";
+                    //删除移出元素的自定义属性
+                    oLisl[i].removeAttribute("change");
+                    //把移出元素节点添加到右边的ul标签里
+                    oCon2.appendChild(oLisl[i]);
+                    //元素移出后，剩下元素的下标会往上移一位，所以要用i--抵消掉
+                    i--;
+                }
+
+            }
+        }
+
+        for(var i=0; i<oLisr.length; i++){
+            oLisr[i].onclick = function () {
+                this.setAttribute("change","true");
+                this.className = "show";
+            }
+        }
+        oBleft.onclick = function () {
+            for(var i=0; i<oLisr.length; i++){
+                if(oLisr[i].getAttribute("change")){
+                    oLisr[i].className = "";
+                    oLisr[i].removeAttribute("change");
+                    oCon1.appendChild(oLisr[i]);
+                    i--;
+                }
+
+            }
+        }
+    </script>
+</body>
+</html>

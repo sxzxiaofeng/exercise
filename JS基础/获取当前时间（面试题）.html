@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var now = new Date();
+    var years = now.getFullYear();
+    var months = now.getMonth()+1;//月是从0开始计算的要加1
+     months = months > 10 ? months : "0" + months;
+    var days = now.getDate();
+    days = days >10 ? days : "0" + days;
+    console.log("今天的日期是：" + years + "年" + months + "月" + days + "日")
+</script>
+</body>
+</html>

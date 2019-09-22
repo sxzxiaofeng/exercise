@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../JS/tab.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #outer{
+            width: 606px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+        #inner{
+            overflow: hidden;
+        }
+        #inner h2{
+            width: 200px;
+            height: 40px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        #inner .active{
+            color: #fff;
+            background-color: red;
+        }
+        #con{
+            width: 604px;
+            height: 300px;
+            text-align: center;
+        }
+        #con li{
+            display: none;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+        }
+        #con .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner">
+            <h2 class="active">热点新闻</h2>
+            <h2>体育赛事</h2>
+            <h2>财经报道</h2>
+        </div>
+        <ul id="con">
+            <li class="show">内容一</li>
+            <li>内容二</li>
+            <li>内容三</li>
+        </ul>
+    </div>
+</body>
+</html>

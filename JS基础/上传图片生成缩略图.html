@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" id="img" multiple>
+<div id="con"></div>
+
+<script>
+    var oImg = document.getElementById("img");
+    var oCon = document.getElementById("con");
+
+    oImg.onchange = function() {
+        var reader = new FileReader();
+        //读取图片信息，保存url
+        // reader.readAsDataURL(oImg.files [0]);
+        for(var i=0; i<this.files.length; i++){//this指向oImg
+            fn(i);
+        }
+
+       function fn(i){
+           var reader = new FileReader();
+           //onload是异步事件，当进入事件时，reader对象始终是最后一个，所以图片会被覆盖 ，把reader对象放在函数里可以解决
+           reader.readAsDataURL(oImg.files [i]);//读取图片信息，保存url,这里不能用this，this指向window
+           reader.onload = function() {
+               var newImg = new Image();
+               newImg.src = reader.result;
+
+               newImg.onload = function() {
+                   newImg.width = 200;
+                   oCon.appendChild(newImg);
+               }
+           }
+       }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动条比例版</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+       /* 禁掉系统滚动条*/
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .wrap{
+            width: 30px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #929292;
+        }
+        .inner{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: pink;
+            cursor: pointer;
+        }
+        .con{
+            width: 100%;
+            /*background-color: #0b2aaa;*/
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script src="../../JS/my.js"></script>
+</head>
+<body>
+<div class="con"></div>
+<div class="wrap">
+    <div class="inner"></div>
+</div>
+<script>
+    var oCon = document.querySelector(".con");
+    var oWrap = document.querySelector(".wrap");
+    var oInner = document.querySelector(".inner");
+
+    for (var i = 1; i < 300; i++) {
+        oCon.innerHTML += i + "<br>";
+    }
+
+        //计算比列
+        var scale = window.innerHeight / oCon.offsetHeight;
+        // 让滑块的高度根据内容的多少而改变(显示的内容越少滚动条越长)
+        oInner.style.height = scale * oWrap.clientHeight + "px";
+
+        oInner.onmousedown = function(ev) {
+            //获取event事件（event事件的兼容性写法）
+            var ev = ev || window.event;
+            //阻止默认事件
+            ev.preventDefault ? ev.preventDefault(): ev.returnValue = false;
+            //获取元素初始坐标
+            var mouseDownTop = ev.clientY;
+            //获取元素距离文档顶部的距离
+            var innerStart = my.getEleToDoc(oInner).top;
+
+            document.onmousemove = function(ev) {
+                var ev = ev || window.event;
+                //阻止默认事件
+                ev.preventDefault ? ev.preventDefault(): ev.returnValue = false;
+
+                //元素移动后的clientY减开始的坐标，加上文档顶部的距离，即元素移动的距离
+                var innerPointY = ev.clientY - mouseDownTop + innerStart;
+
+                //判断元素临界值
+                if(innerPointY <= 0){
+                    innerPointY  = 0;
+                }else if(innerPointY >= oWrap.clientHeight - oInner.offsetHeight){
+                    innerPointY  = oWrap.clientHeight - oInner.offsetHeight;
+                }
+                //把值赋值给元素的top值
+                oInner.style.top = innerPointY + "px";
+
+                //滑块移动的距离除以比列，等于内容走的距离（比例是固定的）
+                oCon.style.top = -innerPointY / scale+ "px";
+            }
+            document.onmouseup = function(){
+                document.onmousemove = document.onmouseup = null;
+            }
+        }
+
+</script>
+</body>
+</html>

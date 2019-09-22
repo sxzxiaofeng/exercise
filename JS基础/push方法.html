@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>push方法</title>
+</head>
+<body>
+<script>
+    // push方法 ：接受任意数量的参数 把参数逐个添加到数组的末尾
+    //改变了原数组  返回插入后数组的长度
+    var arr1 = [1,2,3,4,5];
+    var arr1Return = arr1.push("a");
+    console.log(arr1);//[1, 2, 3, 4, 5, "a"]
+    console.log(arr1Return);//6
+
+    //添加多个 就是书写多个参数
+    var arr1 = [1,2,3,4,5];
+    var arr1Return = arr1.push("a","b","c");
+    console.log(arr1);//[1, 2, 3, 4, 5, "a", "b", "c"]
+    console.log(arr1Return);//8
+
+    //当参数是一个数组的时候  并不会把数组拆开  而是直接当成一项插入到数组中
+    var arr1 = [1,2,3,4,5];
+    var arr1Return = arr1.push(["a","b","c"]);
+    console.log(arr1);//[1, 2, 3, 4, 5, ["a", "b", "c"]]
+    console.log(arr1Return);//6
+</script>
+</body>
+</html>

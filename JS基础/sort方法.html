@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // sort方法是对数组进行排序
+
+    // 1、当sort方法不传递参数的时候  默认让元素转换成字符串  按照升序排列（一位一位的比较）
+    //sort方法 改变了原数组  并且也返回了改变后的数组
+    var arr1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    // var arr1 = [1,6,3,7,5,1,7,8];
+    var arr1Return = arr1.sort();
+    console.log(arr1);
+    console.log(arr1Return);
+
+
+    // sort方法可以传递一个参数，让sort方法对数字进行大小排列 这个参数是一个函数
+    //函数接受两个参数 然后 每次传入两个值进行比较
+    var arr2 = [1,2,5,4,23,45,24,3,7,18];
+    console.log(arr2);
+    arr2.sort(function (a,b) {
+        // console.log(a,b);
+        // a是第二个值，b是第一个值
+        // return a-b是升序
+        // 也就是说 其实sort接受一个返回值  如果返回的是正数 就是升序
+        //如果说返回的是负数  那么就降序
+        return b-a;
+    })
+    console.log(arr2);
+
+
+    // 改动一下上边的代码
+
+    /*如果为正 不调换位置（返回正数）  那么就倒序排列
+    如果为负 调换位置（返回负数）  那么就升序排列*/
+    var arr3 = [1,2,5,4,23,45,24,3,7,18];
+    arr3.sort(function (a,b) {
+        if (a>b){
+            return 1;//如果返回正数 则不调换位置
+        }else if (a<b){
+            return -1;//如果返回负数 则调换位置
+        }else{
+            return 0;//如果返回0  则忽略
+        }
+    })
+    console.log(arr3);
+</script>
+</body>
+</html>

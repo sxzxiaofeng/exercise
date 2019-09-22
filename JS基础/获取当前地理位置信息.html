@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="getLocation()">获取信息</button>
+<script>
+    function getLocation() {
+        //第一步:判断兼容
+        if (navigator.geolocation){
+            //getCurrentPosition方法有两个参数，两个参数都是函数，第一个函数是成功函数，第二个是失败函数
+            navigator.geolocation.getCurrentPosition(showSuccess,showError);
+
+            //成功函数默认有一个参数， 参数就是当前的位置信息的对象
+            function showSuccess(position) {
+                console.log(position.coords);
+                console.log(position);
+                alert("经度"+ position.coords.longitude);
+                alert("纬度"+ position.coords.latitude) ;
+
+            }
+
+            function showError() {
+                alert("失败");
+            }
+        }else{
+            alert("垃圾");
+        }
+}
+
+
+</script>
+</body>
+</html>

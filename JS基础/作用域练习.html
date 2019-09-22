@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    alert(a);//返回123
+    <link rel="icon" href="./img/favicon.ico">
+</head>
+<body>
+<script>
+   var a = 123;
+   function fun(){
+       a = 456;//修改了全局作用域的a
+   }
+   fun();
+   alert(a);//返回456
+
+    var a = 123;
+    function  fun1(a) {
+        alert(a);//返回undefined，传递了形参，没传实参
+        a = 456; //修改的是形参a，并不会影响全局的a
+    }
+    fun1();
+    alert(a);//返回123
+
+   var a = 123;
+   function  fun2(a) {
+       alert(a);//返回123，是函数传递进来的实参123
+       a = 456;
+   }
+   fun2(123);
+   alert(a);//返回123，是全局的123
+</script>
+</body>
+</html>

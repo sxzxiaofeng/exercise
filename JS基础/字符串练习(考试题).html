@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  /*  var str = "5" + 2 + '1';
+    var str2 = "5"+ 2 - "1";
+    console.log(str);//521
+    console.log(typeof(str));//string类型
+
+    console.log(str2);//返回51
+    console.log(typeof(str2));//number
+
+    var x=100;
+    a = x + "";//隐式转换为string类型
+    console.log(typeof(a));*/
+
+/*    var a = 100;
+    var b = "100";
+    alert(b- a);//返回0
+    alert(typeof (b- a));//Number类型
+    alert(a + b - a);//返回100000
+    alert(typeof (a + b - a));//Number类型
+    alert(a + b);//返回100100
+    alert(typeof (a + b));//string类型
+    alert(a + b - b);//返回100000
+    alert(typeof (a + b - b));//Number类型
+    alert(a + b - b - b);//返回99900
+    alert(typeof (a + b - b - b));//Number类型
+    */
+
+  /*  var a = 10;
+    a.pro = 10;
+    console.log(a.pro + a);//返回NaN*/
+
+    //封装一个函数实现字符串反转，如将'12345678'变成‘87654321’
+
+  // var str = "abcdefghijkl"
+  //   var arr = [];
+/*    var str = "12345678";
+    function  reverseString(str) {
+        var newStr = str.split("");
+        newStr.reverse();
+        var arr = newStr.join("");
+        console.log(arr);
+        // return arr;
+    }
+    reverseString("abcdefghj");*/
+
+    //JS实现随机选取10-100之间的10个数字，存入一个数组，并排序
+         var arr = [];//定义一个空数组存放数据
+         for(var i=0; i<10; i++){
+             //获取10个10-100之间的随机数，每次只能生成一个，用循环执行10次
+           var num = Math.floor(Math.random()*90+10);
+           //把每次生成的随机数push到数组里，push方法把参数逐个添加到数组末尾，改变了原数组，返回插入后数组的长度
+           arr.push(num);
+        }
+         //对新的数组进行升序排列
+        arr.sort(function (a, b) {
+            return a-b;
+        });
+      console.log(arr);
+
+/*
+        doctype是版本声明，告诉浏览器的解析器，当前页面是以h5的规范来解析渲染，书页在页面的第一行，如果不写或书写         错误会出现混杂模式，也叫怪异模式!
+        严格模式，是以浏览器支持的最高标准执行渲染。
+        混杂模式，页面是以宽松的形式向后（老的规范）兼容，模拟老浏览器的工作方式，防止页面在老浏览器中不可使用。
+
+        */
+
+/*
+  Undefined和null的区别
+  null是空，undefined是未定义，找不到
+  null一般在以下3种情况出现：
+    1，作为函数的参数，表示该函数的参数不是对象，需要传递参数，但是我们暂时不想传递或者不需要传递，那么我们可以传     一个空对象null，例如：对象名（null，null），ajax有个方法send(),send方法参数是你要向服务器传递的值，但是get方法  是在地址栏拼接值，所以不需要send传递，所以我们在send中写一个参数null，告诉他我不想在这里传递
+  2，作为对象原型链的终点
+    比如：“123”—>String—>Object—>null（一级一级往上）
+   3，如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值
+    undefined一般出现如下4种情况：1，变量被声明了，但没有赋值时，就等于undefined,2，调用函数时，应该提供的参数没有  提供，该参数等于undefined
+  3，对象没有赋值的属性，该属性的值为undefined。4，函数没有返回值时，默认返回undefined
+
+*/
+
+  /*  var a = 10;
+    a.pro =10;
+    console.log((a.pro + a));//返回NaN
+
+    var s ="hello";
+    s.pro = "world";
+    console.log((s.pro + s));//返回undefinedhello*/
+
+ /* function test2() {
+         alert(t);
+         t = "6";
+     }
+     test2();//报错，变量未声明*/
+
+  /*  var t = "5";
+    function test2() {
+        alert(t);//弹出5
+        t = "6";
+        alert(t);//弹出6，t是全局变量，修改了全局变量
+    }
+    test2();*/
+
+   /* var length = 4;
+    function fn() {
+        console.log(this.length);
+    }
+    var obj = {
+        length: 8,
+        method: function (fn) {
+            fn();
+            arguments[0]();//用arguments这个对象调用fn
+        }
+    };
+    obj.method(fn,1,2);//返回4,3
+    fn.call(obj);/!*返回8，call可以改变this指向*!/*/
+
+    /* 首先arguments是个类数组，也是个对象；所以arguments0的意思就是这个arguments这个对象调用fn，
+    所有this是这个类数组对象；他的长度有三个；所以结果是3；*/
+
+
+
+
+</script>
+
+</body>
+</html>

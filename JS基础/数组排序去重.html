@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [12,23,34,44,12,23,36,20];
+    //定义一个新的空数组，用来保存去重后的数据
+    var newArr = [];
+    //先排好序后去掉重复的
+    arr.sort(function (a,b) {
+        return a-b;//返回a-b 升序排列
+    })
+    //console.log(arr);排好序后[12, 12, 20, 23, 23, 34, 36, 44]
+    for(var i=0; i<arr.length; i++){
+        //如果相邻两个数相等
+        if(arr[i]==arr[i+1])
+        {
+            //newArr=arr.push(i);
+            continue;//退出当前循环，执行下一次循环
+        }
+            newArr.push(arr[i]);
+
+    }
+        console.log(newArr);
+
+</script>
+</body>
+</html>

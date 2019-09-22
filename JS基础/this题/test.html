@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var num = 1;
+    var myObject = {
+        num: 2,
+
+        add: function() {
+        this.num = 3;
+
+        ( function() {
+            console.log(this.num);//返回1
+            this.num = 4; //this指向全局window,改变了全局num的值
+        })();
+        console.log(this.num);//返回3
+    },
+        sub: function() {
+            console.log( this .num)
+         }
+    };
+    myObject.add() ;
+    console.log(myObject.num);//返回3
+
+    console.log(num);//返回4
+    var sub = myObject.sub;
+    sub();//sub是自调用,this指向的是window,返回4
+
+</script>
+</body>
+</html>

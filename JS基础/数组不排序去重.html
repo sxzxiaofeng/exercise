@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [2,4,5,7,4,8,10,10];
+    var newArr = [];
+    arr.forEach(function (item, index) {
+        if(arr.indexOf(item,index) == arr.lastIndexOf(item)){
+            newArr.push(item);
+        }
+    })
+    console.log(newArr);
+</script>
+</body>
+</html>

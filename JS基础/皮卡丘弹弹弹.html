@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>皮卡丘弹弹弹</title>
+</head>
+<style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    #outer{
+        width: 800px;
+        height: 625px;
+        background-color: hotpink;
+        position: relative;
+        margin: 0 auto;
+    }
+    #box{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 30px;
+        top: 300px;
+        border-radius: 50%;
+        text-align: center;
+        background: url("../../img/pikaqiu.jpg ") center center no-repeat;
+        font-size: 12px;
+    }
+    #box1{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        right: 30px;
+        top: 150px;
+        border-radius: 50%;
+        text-align: center;
+        background: url("../../img/peiqi.jpg ") center center no-repeat;
+        font-size: 12px;
+    }
+
+</style>
+<body>
+    <div id="outer">
+        <div id="box"></div>
+        <div id="box1"></div>
+    </div>
+    <script>
+        oOuter = document.getElementById("outer");
+        oBox = document.getElementById("box");
+        oBox1 = document.getElementById("box1");
+        var timer = null;
+        //定义一个开关，保存当前元素移动的方向状态，达到临界值时改变方向
+        var isRight = true,isBottom = true;
+        //定义一个开关，控制小图标开始暂停
+        var isReady = true;
+        //初始化一个变量，保存X轴坐标
+        var leftPoint = 30;
+        var rightPoint = 10;
+        //初始化一个变量保存Y轴坐标
+        var topPoint = 300;
+        var topPoint1 = 150;
+        //封装一个函数
+        function showTime() {
+            //设置一个计时器
+            timer = setInterval(function () {
+                //如果当前元素朝右移动
+                if(isRight){
+                    //让X轴坐标left加加
+                    leftPoint++;
+                    rightPoint++;
+                    //如果当前元素走到边框，改变当前元素状态，让它朝相反方向移动
+                    if(leftPoint >= oOuter.clientWidth-oBox.offsetWidth||rightPoint >=      oOuter.clientWidth-oBox1.offsetWidth){
+                        isRight = false;
+                    }
+                }
+                else {
+                    //进入else，说明当前元素方向改变，让X轴距离减减
+                    leftPoint--;
+                    rightPoint--;
+                    //如果当前元素小于等于0说明碰到左边的边框，那么就改变当前元素状态
+                    if (leftPoint <= 0||rightPoint <= 0){
+                        isRight = true;
+                    }
+                }
+                //把值赋值给x轴坐标left
+                oBox.style.left = leftPoint + "px";
+                oBox1.style.right = rightPoint + "px";
+
+                if(isBottom){
+                    topPoint++;
+                    topPoint1++;
+                    if(topPoint >= oOuter.clientHeight-oBox.offsetHeight||topPoint1 >= oOuter.clientHeight-oBox1                         .offsetHeight){
+                        isBottom = false;
+                    }
+                }
+                else {
+                    topPoint--;
+                    topPoint1--;
+                    if (topPoint <= 0||topPoint1 <= 0){
+                        isBottom = true;
+                    }
+                }
+                oBox.style.top = topPoint + "px";
+                oBox1.style.top = topPoint1 + "px";
+            },6);
+        }
+        //进入页面默认图标是移动状态
+        showTime();
+        //给图标绑定点击事件
+        oBox.onclick = function () {
+            if(isReady){
+                //如果当前是移动状态，就弹出文字
+                oBox.innerHTML = "嗨！我是皮卡丘";
+                //清除计时器，让图标停止运动
+                clearInterval(timer);
+                //改变图标状态
+                isReady = false;
+            }
+            else{
+                //进入else说明图标停止运动，那么就清空图标的文字
+                oBox.innerHTML = "";
+                //调用函数，让图标移动起来
+                showTime();
+                //改变图标的状态
+                isReady = true;
+            }
+        }
+        oBox1.onclick = function () {
+            if(isReady){
+                //如果当前是移动状态，就弹出文字
+                oBox1.innerHTML = "嗨！我是小猪佩奇";
+                //清除计时器，让图标停止运动
+                clearInterval(timer);
+                //改变图标状态
+                isReady = false;
+            }
+            else{
+                //进入else说明图标停止运动，那么就清空图标的文字
+                oBox1.innerHTML = "";
+                //调用函数，让图标移动起来
+                showTime();
+                //改变图标的状态
+                isReady = true;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机卡牌</title>
+    <style>
+        #card{
+            width: 300px;
+            height: 400px;
+            margin: 100px auto;
+            border: 1px solid #000;
+        }
+        #img{
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="card">
+    <img id="img" src="./img/1.jpg" alt="">
+    </div>
+    <script>
+        var oCard = document.querySelector("#card");
+        var oImg = document.querySelector("#img");
+        // var newImg = new Image();
+
+        oCard.onclick = function() {
+            for(var i=0; i<7; i++){
+                var num = Math.floor(Math.random()*6 + 1);
+                // console.log(num);
+            }
+            oImg.src = "./img/"+ num + ".jpg";
+            // oCard.appendChild(newImg);
+        }
+    </script>
+</body>
+</html>

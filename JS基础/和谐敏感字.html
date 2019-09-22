@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <textarea name="" id="text" cols="30" rows="10"></textarea>
+</head>
+<body>
+<script>
+    var oText = document.getElementById("text");
+    oText.onchange = function () {
+        var userCon = oText.value;
+        var reg = /傻逼|卧槽|傻屌|赶紧滚蛋/g;
+        // var newStr = userCon.replace(reg,"*");
+        // console.log(newStr);
+        // oText.value = newStr;
+       var newStr = userCon.replace(reg,function (substring) {
+            var str = "";
+            var len = substring.length;
+            for(var i=0; i<len; i++){
+                str += "*";
+            }
+            return str;
+        });
+        oText.value=newStr;
+    }
+
+
+</script>
+</body>
+</html>

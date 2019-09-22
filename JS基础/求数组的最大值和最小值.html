@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //初始化一个数组
+    var arr = [12,3,4,34,45,445,23];
+    //定义量两个变量做置换，并保存最大值和最小值
+    var max = 0;
+    var min = 450;
+    //for循环遍历数组每一个值
+    for(var i=0; i<arr.length; i++){
+        //让min依次和数组的值做比较，如果min大，就用数组里的值把min替换掉
+        if(min > arr[i]){
+            min = arr[i];
+        }
+        if(max < arr[i]){
+            max = arr[i];
+        }
+    }
+    console.log(min,max);
+</script>
+</body>
+</html>

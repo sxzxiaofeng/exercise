@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .test{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script src="../../JS/drag.js"></script>
+</head>
+<body>
+    <div class="test">
+    </div>
+    <script>
+        var test = document.querySelector(".test");
+        $.drag(test);
+    </script>
+</body>
+</html>

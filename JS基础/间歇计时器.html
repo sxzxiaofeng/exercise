@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            position: absolute;
+            left: 0;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    </div>
+    <button id="btn">点我</button>
+    <script>
+        oBox = document.getElementById("box");
+        oBtn = document.getElementById("btn");
+        var oBoxLeft = 0;//定义一个变量来保存left的值，方便拼接像素
+        //定义一个全局的变量timer，赋值为空,方便后续清除
+        var timer = null;
+        oBtn.onclick = function () {
+            //每次点击按钮，让left加加
+            oBoxLeft += 20;
+           setInterval(function () {
+                oBox.style.left= oBoxLeft + "px";
+            },1)
+        }
+
+        //计时器面试题（闭包）
+  /*      for(var i=0; i<5; i++)
+        {
+            (function fn(i){
+                //只要在这个函数中出现i，那么就不会使用for循环的i，
+                // 形参i其实就是这个作用域的变量
+                    setTimeout(function(){
+                        console.log(i);//0,1,2,3,4
+                    },0)
+             })(i);
+        }*/
+    </script>
+</body>
+</html>

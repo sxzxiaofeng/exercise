@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    请输入你的用户名：
+    <input type="text" id="userName">
+    <button id="btn">提交</button>
+</head>
+<body>
+<script>
+    //获取到文本框和按钮的id名
+    var oIpt = document.getElementById("userName");
+    var oBtn = document.getElementById("btn");
+    //给按钮绑定点击事件
+    oBtn.onclick= function () {
+//            如果用户名长度大于10，弹出重新输入
+            if(oIpt.value.length > 10)
+            {
+                alert("您输入的用户名无效，请输入10位以下的用户名");
+                oIpt.value = "";//清空文本框的值
+            }
+            else if(oIpt.value.length==0)
+            {
+                //alert("您输入的用户名有效！");
+                alert("您的用户名不能为空");
+            }
+            else
+            {
+                alert("您输入的用户名有效");
+            }
+    }
+</script>
+</body>
+</html>

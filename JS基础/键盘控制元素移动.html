@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background: url("../../img/pikaqiu.jpg") center center no-repeat;
+            /*border: 1px solid #000000;*/
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.getElementById("box");
+        var timer = null;
+        //定义开关来控制元素的方向
+        var up = false,down = false,left= false,right = false;
+        //初始化两个变量保存x轴y轴坐标
+        var x = 0,y = 0;
+        //给文档绑定键盘按下事件
+        document.onkeydown = function (ev) {
+            var ev = ev || window.event;
+                    switch (ev.keyCode) {
+                        case 38:
+                            up = true;
+                            break;
+                        case 39:
+                            right = true;
+                            break;
+                        case 37 :
+                            left = true;
+                            break;
+                        case 40:
+                            down = true;
+                            break;
+                    }
+        }
+        //给文档绑定键盘抬起事件
+            document.onkeyup = function (ev) {
+                var ev = ev || window.event;
+                switch (ev.keyCode) {
+                    case 38:
+                        up = false;
+                        break;
+                    case 39:
+                        right = false;
+                        break;
+                    case 37 :
+                        left = false;
+                        break;
+                    case 40:
+                        down = false;
+                        break;
+                }
+        //         clearInterval(timer);
+        }
+            //设置一个计时器来控制元素移动
+            timer = setInterval(function () {
+                // clearInterval(timer);
+                if(up){
+                    y--;
+                }
+                if(down){
+                    y++;
+                }
+                if(left){
+                    x--;
+                }
+                if(right){
+                    x++;
+                }
+                oBox.style.left = x + "px";
+                oBox.style.top  = y + "px";
+            },10);
+    </script>
+</body>
+</html>

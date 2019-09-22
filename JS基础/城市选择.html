@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择城市</title>
+    <style>
+        *{
+            list-style:none;
+            margin: 0;
+            padding:0;
+        }
+        #outer{
+            width: 450px;
+            margin: 20px auto;
+        }
+        #outer h2{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #outer p{
+            background-color: #5c6b71;
+            font-size:16px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        #con{
+            position: relative;
+        }
+        #cityList{
+            /*//ul有默认的40pxpadding，在IE中有默认的40px margin-left*/
+            overflow: hidden;
+            width: 450px;
+            text-align: center;
+            /*ul要相对于con DIV定位在下面显示*/
+            position: absolute;
+            /*地址列表默认隐藏*/
+            display: none;
+            background-color: pink;
+        }
+        #cityList li{
+            float: left;
+            width: 80px;
+            height: 30px;
+            margin: 10px;
+            cursor: pointer;
+            /*定位和浮动同时设置，定位生效*/
+        }
+        /*#cityList .active{*/
+        /*    background-color: red;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <div id = "outer">
+        <h2 id="title">深圳</h2>
+        <div id="con">
+            <p id="select">请选择一个城市</p>
+            <ul id="cityList">
+                <li class="active">深圳</li>
+                <li>北京</li>
+                <li>上海</li>
+                <li>广州</li>
+                <li>武汉</li>
+                <li>南京</li>
+                <li>合肥</li>
+                <li>杭州</li>
+                <li>苏州</li>
+                <li>石家庄</li>
+                <li>郑州</li>
+                <li>韶关</li>
+                <li>韶关</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var oCityList = document.getElementById("cityList");
+        var oTitle = document.getElementById("title");
+        var oLis = oCityList.getElementsByTagName("li");
+        //给文档绑定点击事件，利用事件委托不用for循环遍历，提高效率
+        document.onclick = function (ev) {
+            // 获取event事件
+            var ev = ev || window.event;
+            //获取到event事件的target属性（兼容性写法）
+            var target = ev.target || target.srcElement;
+            if(target.id=="select"){
+                oCityList.style.display = "block";
+                return;
+            }
+            //如果当前选中的节点名是li标签，并且父节点的ID名是cityList就改变HTML内容
+            if(target.nodeName=="LI"&&target.parentNode.id=="cityList"){
+                oTitle.innerHTML = target.innerHTML;
+                //让ul地址列表显示
+                oCityList.style.display = "block";
+                // target.className = "active";
+                //退出当前函数
+                return;
+            }
+                // oLis.className = "";
+              //如果当前点击的不是p标签和li标签，就让列表隐藏
+                oCityList.style.display = "none";
+
+        }
+    </script>
+</body>
+</html>

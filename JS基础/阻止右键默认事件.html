@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../JS/my.js"></script>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left:0;
+            top: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    </div>
+    <script>
+            var oBox = my.getID("box");
+            //因为是在整个文档页面点击，所以给document绑定点击事件
+            document.oncontextmenu = function (ev) {
+                var ev = ev||window.event;
+                oBox.style.display = "block";
+                oBox.style.left = ev.clientX + "px";
+                oBox.style.top = ev.clientY + "px";
+
+                //获取当前元素的边缘距离
+                var contextmenu = {
+                 left: my.getOffset(ev,oBox).left,
+                 top: my.getOffset(ev,oBox).top
+                 }
+
+                //保存元素最终的距离
+                var boxPoint = {
+                    left: ev.clientX - contextmenu.left,
+                    top : ev.clientY - contextmenu.top
+                }
+               /* 如果当前元素的边缘距离大于可视化区域的宽度减去自身的宽度，就让当前元素的left值减去它自身的宽度从而让它在
+                左边显示不超出屏幕*/
+               if(boxPoint.left > my.getScreen().width-oBox.offsetWidth){
+                   boxPoint.left = my.getScreen().width-oBox.offsetWidth;
+               }
+//               oBox.style.left = boxPoint.left + "px";
+                return false;
+            }
+    </script>
+</body>
+</html>

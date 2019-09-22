@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 获取时间戳方法一
+        //实例化一个时间对象
+        var now = new Date();
+    /*    //调用gettime方法获取到时间
+        var time = now.getTime();
+        console.log(now);*/
+
+        // 方法二
+        var time = Number(now);
+        console.log(time);
+
+        //方法三
+        var time = now.valueOf();
+        console.log(time);
+
+        //方法四，时间对象不用实例化，有个now方法可以直接获取时间
+        var time = Date.now();
+        console.log(time);
+    </script>
+</body>
+</html>

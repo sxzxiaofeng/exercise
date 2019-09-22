@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .outer{
+            width: 1570px;
+            margin: 50px auto;
+            border: 1px solid #000;
+            /*overflow: hidden;*/
+        }
+        #inner{
+            width: 3200px;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+        }
+        #inner img{
+            width: 314px;
+            height: 224px;
+            float: left;
+            /*margin-right: 5px;*/
+        }
+    </style>
+</head>
+<body>
+    <button id="btn1">向左滚动</button>
+    <button id="btn2">暂停播放</button>
+    <button id="btn3">向右滚动</button>
+    <div class="outer">
+        <div id="inner">
+            <img src="../../img/1.jpg" alt="">
+            <img src="../../img/2.jpg" alt="">
+            <img src="../../img/3.jpg" alt="">
+            <img src="../../img/4.jpg" alt="">
+            <img src="../../img/5.jpg" alt="">
+            <img src="../../img/1.jpg" alt="">
+            <img src="../../img/2.jpg" alt="">
+            <img src="../../img/3.jpg" alt="">
+            <img src="../../img/4.jpg" alt="">
+            <img src="../../img/5.jpg" alt="">
+        </div>
+    </div>
+    <script>
+    /*   var oInner =document.getElementById("inner");
+        //初始化一个变量，用来保存left的值，方便拼接像素
+        var innerLeft =0;
+        //初始化一个全局变量timer为空，方便后续清空计时器
+        var timer = null;
+           timer =  setInterval(function () {
+                //计时器执行时，每次让inner div的定位距离往左移
+            innerLeft += 18;
+                //innerLeft的值赋值给div的left的，因为往left里面移，所以加负号
+            oInner.style.left = -innerLeft+"px";
+               /!* 判断如果inner div的距离大于5张图片的时候，也就是刚好播放完5张图片，让innnerleft的值为0，图片回到                   起点重新播放*!/
+            if(innerLeft >= 314*5)
+            {
+                 innerLeft= 0;
+                //oInner.style.left = 0;
+            }
+        },100)*/
+        //方法二，程序优化
+ /*       var oInner = document.getElementById("inner");
+        var oBtn1 = document.getElementById("btn1");
+        var oBtn2 = document.getElementById("btn2");
+        var oBtn3 = document.getElementById("btn3");
+        var innerLeft = 0;
+        var timer = null;
+        //默认图片向左滚动
+             timer = setInterval(function (){
+                   innerLeft += 20;
+                   if(innerLeft >= 314*5){
+                       innerLeft = 0;
+                   }
+                   oInner.style.left = -innerLeft + "px";
+               },100)
+        //点击按钮执行计时器让图片向左滚动播放
+            oBtn1.onclick = function () {
+                clearInterval(timer);
+                timer = setInterval(function (){
+                    innerLeft += 20;
+                    if(innerLeft >= 314*5){
+                        innerLeft = 0;
+                    }
+                    oInner.style.left = -innerLeft + "px";
+                },100)
+            }
+            //点击按钮清除计时器，让图片停止滚动
+            oBtn2.onclick = function () {
+                //把计时器用变量保存起来方便清除
+                clearInterval(timer);
+            }
+            //点击按钮让图片像右滚动播放
+            oBtn3.onclick = function () {
+                clearInterval(timer);
+                timer = setInterval(function (){
+                    innerLeft -= 20;
+                    if(innerLeft <= 0){
+                        innerLeft = 314*5;
+                    }
+                    oInner.style.left = -innerLeft + "px";
+                },100)
+            }*/
+        //方法三，把重复代码封装成函数，需要时直接调用
+            var oInner = document.getElementById("inner");
+         var oBtn1 = document.getElementById("btn1");
+         var oBtn2 = document.getElementById("btn2");
+         var oBtn3 = document.getElementById("btn3");
+         var innerLeft = 0;
+         var timer = null;
+         //默认图片向左滚动
+         function  showImage() {
+             timer = setInterval(function (){
+                innerLeft += 20;
+                 if(innerLeft >= 314*5){
+                innerLeft = 0;
+             }
+                oInner.style.left = -innerLeft + "px";
+             },100);
+         }
+         //把函数封装起来方便调用
+         function  moveLeft() {
+             //每次执行函数前，先清空计时器，不然计时器会叠加
+             clearInterval(timer);
+             showImage();
+         }
+         //把函数封装起来方便调用
+         function moveRight(){
+             clearInterval(timer);
+             timer = setInterval(function (){
+             innerLeft -= 20;
+             if(innerLeft <= 0){
+             innerLeft = 314*5;
+             }
+             oInner.style.left = -innerLeft + "px";
+             },100)
+         }
+         function stop() {
+             clearInterval(timer);
+         }
+         //点击按钮，调用封装好的函数
+         oBtn1.onclick = function () {
+             moveLeft();
+         }
+         oBtn2.onclick = function () {
+            stop();
+         }
+         oBtn3.onclick = function () {
+            moveRight();
+         }
+         //鼠标移入inner box停止播放
+         oInner.onmouseenter = function () {
+            stop();
+         }
+         oInner.onmouseleave = function () {
+            moveLeft();
+         }
+   /*     /!*要求走完一张图片停一秒钟*!/
+        var oInner = document.getElementById("inner");
+        var oBtn1 = document.getElementById("btn1");
+        var oBtn2 = document.getElementById("btn2");
+        var oBtn3 = document.getElementById("btn3");
+        var innerLeft = 0;
+        var timer = null,timer2 = null;
+        timer = setInterval(function () {
+            innerLeft += 20;
+            //如果刚好走完一张图片的距离，就清空计时器
+            if(innerLeft%(319*5) == 0){
+                clearInterval(timer);
+                //设置一个定时器，让图片停一秒
+                timer2 = setTimeout(function () {
+                    timer = setInterval(function (){
+                        innerLeft += 20;
+                        if(innerLeft >= 319*5){
+                            innerLeft = 0;
+                        }
+                        oInner.style.left = -innerLeft + "px";
+                    },1000);
+                })
+            }
+            if(innerLeft >= 319*5){
+                innerLeft = 0;
+            }
+            oInner.style.left = -innerLeft + "px";
+        },100);
+*/
+    </script>
+</body>
+</html>

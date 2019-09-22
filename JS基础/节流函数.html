@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height: 2000px;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+<script>
+    //定义一个节流函数的开关
+    var flag = true;
+    var i = 0;
+    function  fn() {
+        i++;
+        console.log("我动了"+i);
+    }
+    window.onscroll = function () {
+        //触发事件的时候先关掉开关
+        if(flag = false){
+            //退出函数
+            return;
+        }
+        flag = false;
+        fn();
+        setTimeout(function () {
+            flag = true;
+        },100);
+    }
+</script>
+</body>
+</html>

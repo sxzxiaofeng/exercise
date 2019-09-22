@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS字幕效果</title>
+</head>
+<style>
+    .outer{
+        width: 500px;
+        height: 300px;
+        margin: 100px auto;
+        border: 1px solid #929292;
+        background-color: #929292;
+    }
+    #con{
+        width: 500px;
+        height: 300px;
+        text-align: center;
+        color: pink;
+    }
+</style>
+<body>
+    <div class="outer">
+        <span id="con"></span>
+    </div>
+    <script>
+        var oCon = document.querySelector("#con");
+        var str = "嘿！你好啊！欢迎来到Siri的小窝，我是你的私人秘书Siri";
+        var arr = str.split("");
+        //闭包实现，在计时器外面套个函数，把变量i传递进去
+        for(var i=0; i<arr.length; i++) {
+            (function (i){
+                setTimeout(function (){
+                    oCon.innerHTML += arr[i].slice(0, 1);
+                }, 400*i)//乘i控制计时器每个400毫秒执行一次
+            })(i);
+        }
+
+    </script>
+</body>
+</html>

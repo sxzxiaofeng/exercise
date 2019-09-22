@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            overflow: hidden;
+            width: 900px;
+            margin:  0 auto;
+        }
+        #box img{
+            width: 400px;
+            height: 300px;
+            margin: 10px;
+            float: left;
+        }
+    </style>
+    <script src="../../JS/my.js"></script>
+</head>
+<body>
+    <div id="box">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/1.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/2.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/3.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/4.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/5.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/6.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/7.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/8.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/9.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/10.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/11.jpg">
+        <img src="../../img_lazy/timg.gif" alt="" orc="../../img_lazy/12.jpg">
+    </div>
+    <script>
+        oImgs = document.getElementsByTagName("img");
+        //定义一个变量，保存已经加载过的图片数量
+        var count = 0;
+        var flag = true;
+        window.onscroll = function () {
+            if(!flag){
+                return;
+            }
+            flag = !flag;
+            lazyLoad();
+
+            setTimeout(function () {
+                flag = !flag;
+            },200);
+
+        lazyLoad();
+        function lazyLoad() {
+            //1.获取系统滚动条滚过去的距离
+            // my.getWinScroll().top
+            //2.获取屏幕窗口的高度
+            //my.getScreen().height
+
+            /*3、只要函数被调用，那么就遍历所有的img
+            当img距离文档顶部长度 小于等于  滚动条滚过去的距离+窗口的高度   那么就进行加载图片*/
+            for(var i = count; i<oImgs.length; i++){
+                //每次进入循环吗，就让i等于count已经加载过的图片数量，避免重新加载已经加载过的图片，提高效率
+                if(my.getEleToDoc(oImgs[i]).top <= my.getWinScroll().top + my.getScreen().height){
+                    oImgs[i].src = oImgs[i].getAttribute("orc");
+                    count ++;//每次有图片加载，就让count加一
+                }
+            }
+        }
+    </script>
+</body>
+</html>

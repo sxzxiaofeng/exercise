@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<select name="" id="select" multiple>
+    <option value="深圳">深圳</option>
+    <option value="广州">广州</option>
+    <option value="北京">北京</option>
+    <option value="上海">上海</option>
+</select>
+
+<input id="text" type="file" multiple>
+<div id="con"></div>
+<script>
+    var oText = document.getElementById("text");
+    var oCon = document.getElementById("con");
+    oText.onchange = function () {
+        console.log(oText.files);
+
+        var reader = new FileReader();
+
+       reader.readAsText(oText.files[0]);
+
+       reader.onload = function(){
+           console.log(reader);
+           console.log(reader.result);
+           oCon.textContent = reader.result;
+       }
+
+    }
+</script>
+</body>
+</html>

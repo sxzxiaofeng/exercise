@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../JS/my.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+            top: 0;
+            /*overflow: hidden;*/
+        }
+    </style>
+</head>
+<body>
+        <div id="box"></div>
+    <script>
+        var oBox = document.getElementById("box");
+        //给box绑定鼠标按下事件
+        oBox.onmousedown = function (ev) {
+            //获取event事件对象
+            var ev = ev|| window.event;
+            //获取鼠标距离当前元素边缘的距离，并用对象保存起来
+            var mouseDown = {
+                left: my.getOffset(ev,oBox).left,
+                top : my.getOffset(ev,oBox).top
+            }
+            //绑定鼠标移动事件，因为鼠标抬起时可能不在box元素上，所以要给document页面文档绑定事件
+            document.onmousemove = function (ev) {
+                var ev = ev || window.event;
+                //初始化一个对象用来保存当前元素最终的距离
+                var boxPoint = {
+                    left:ev.clientX - mouseDown.left,
+                    top: ev.clientY - mouseDown.top
+                };
+                // console.log(boxPoint.top);
+                //赋值之前先判断临界值，防止box移出屏幕可视区域
+                if(boxPoint.left <= 0){
+                    boxPoint.left = 0;
+                }else if(boxPoint.left >= my.getScreen().width-oBox.offsetWidth){
+                    boxPoint.left = my.getScreen().width-oBox.offsetWidth;
+                }
+
+                if(boxPoint.top <=0){
+                    boxPoint.top = 0;
+                }else if(boxPoint.top >= my.getScreen().height-oBox.offsetHeight){
+                    boxPoint.top = my.getScreen().height-oBox.offsetHeight;
+                }
+                oBox.style.left = boxPoint.left + "px";
+                oBox.style.top = boxPoint.top + "px";
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup= null;
+            }
+        }
+    </script>
+</body>
+</html>

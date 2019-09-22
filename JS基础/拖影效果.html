@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .pi{
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+        <img src="../../img/pikaqiu.ico"  class="pi" alt="">
+
+    </div>
+    <script>
+        var oImgs = document.getElementsByClassName("pi");
+        console.log(oImgs);
+        document.onmousemove = function (ev) {
+            var timer = null;
+            //获取event事件对象
+            var ev = ev || window.event;
+            //定义一个变量作为图片的下标,因为进入计时器v要加加，为了控制所有的图片，所以把v的值设为-1
+            var v = -1;
+            //设置一个计时器
+            timer = setInterval(function () {
+                //进入计时器让图片的下标加加
+                v++;
+                if(v>=oImgs.length-1){
+                    //当图片加载完后清除计时器
+                    clearInterval(timer);
+                }
+                //通过event事件对象获取到图片的坐标，并把值赋值给img图片
+                oImgs[v].style.left = ev.clientX + "px";
+                oImgs[v].style.top = ev.clientY + "px";
+            },120);
+        }
+    </script>
+</body>
+</html>

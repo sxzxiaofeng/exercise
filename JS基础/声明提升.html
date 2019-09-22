@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+//    声明提升：在进入一个作用域的时候，先把所有的变量声明和函数声明提升到当前作用域最上边，然后再按顺序执行代码
+
+   /* var h = "hello";
+    (function () {
+        alert(h);//返回undefined
+        var h = "word";
+    })();
+    alert(h);//返回hello*/
+
+/*  声明提升后，变成如下格式
+    var h = "hello";
+    (function () {
+        var h;
+        alert(h);//声明变量未赋值，返回undefined
+        h = "word";
+    })();
+    alert(h);//返回hello*/
+
+    var a = 2;
+    function check() {
+        a = 100;
+        alert(a);//只有赋值未声明变量a，向父级作用域寻找，找到全局变量a，把全局a变成100，返回100
+    }
+    check();
+    alert(a);//返回100
+</script>
+</body>
+</html>

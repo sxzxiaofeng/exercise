@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: #6e6e6e;
+        }
+    </style>
+</head>
+<button id="btn">删除</button><br>
+<body>
+    <div class="box"></div>
+    <script>
+        var oBox = document.getElementsByClassName("box");
+        var oBtn = document.getElementById("btn");
+
+        //给元素绑定DOM2级事件
+        function  fn1() {
+            alert("Hello World");
+        }
+
+        oBox[0].addEventListener("click",fn1,false);
+
+     /*   oBox[0].addEventListener("click",function () {
+            alert("Hello World");
+        },false);*/
+
+
+        //移除事件
+        oBtn.onclick = function () {
+            oBox[0].removeEventListener("click",fn1);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #outer{
+        width: 1570px;
+        margin: 50px auto;
+        border: 1px solid #000;
+        overflow: scroll;
+    }
+    #inner{
+        width: 3200px;
+        overflow: hidden;
+        /*overflow: scroll;*/
+    }
+    #inner img{
+        width: 314px;
+        height: 224px;
+        float: left;
+    }
+</style>
+<body>
+    <div id="outer">
+        <div id="inner">
+            <img src="../../img/1.jpg" alt="">
+            <img src="../../img/2.jpg" alt="">
+            <img src="../../img/3.jpg" alt="">
+            <img src="../../img/4.jpg" alt="">
+            <img src="../../img/5.jpg" alt="">
+            <img src="../../img/1.jpg" alt="">
+            <img src="../../img/2.jpg" alt="">
+            <img src="../../img/3.jpg" alt="">
+            <img src="../../img/4.jpg" alt="">
+            <img src="../../img/5.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        oBtn = document.getElementById("btn");
+        oOuter = document.getElementById("outer");
+        oInner = document.getElementById("inner");
+      /*  oBtn.onclick = function () {
+            console.log(oOuter.scrollWidth);
+        }*/
+       setInterval(function () {
+           if(oOuter.offsetWidth-oOuter.scrollLeft <= 0){
+               oOuter.scrollLeft = oOuter.scrollLeft-oOuter.offsetWidth;
+           }
+           else {
+               oOuter.scrollLeft++;
+           }
+       },10)
+    </script>
+</body>
+</html>

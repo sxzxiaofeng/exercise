@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="###" id="form">
+    用户名：<input type="text" id="user" name="user"><br>
+    密码：<input type="password" id="pass" name="pass"><br>
+    验证码：<input type="text" id="verify " name="verify"><br>
+    <button id="submit">提交</button>
+    <br>
+</form>
+
+<button id="get">获取cookie</button>
+<button id="delete">移除cookie</button>
+<script>
+    var oUser = document.getElementById("user");
+    var oPass = document.getElementById("pass");
+    var oVerify = document.getElementById("verify");
+    var oSubmit = document.getElementById("submit");
+    var oSet = document.getElementById("set");
+    var oGet = document.getElementById("get");
+    var oForm = document.getElementById("form");
+    var oDelete = document.getElementById("delete");
+
+    //设置cookie,函数封装(如果第三个参数不传递，请设置为null)
+    function setCookie(name,value,time) {
+        var nowDate = new Date();
+        //设置一个7天后过期的时间
+        nowDate.setDate(nowDate.getDate()+time);
+        //escape方法字符编码，unescape字符解码;expires设置一个过期时间，toUTCString()把今天的日期转换为（根据 UTC）字符串
+        document.cookie = name + "="+escape(value) + ((time=null)?"":";expires="+nowDate);
+    }
+    //获取cookie的函数
+    function getCookie(name){
+        //初始化一个变量，保存获取到的cookie
+        var allCookies = document.cookie;
+        //初始化两个变量，记录cookie的开始和结束位置
+        var cook_start,cook_end;
+        if(allCookies){
+            //如果cookie存在，那么就保存cookie的开始位置("name="从cookie的名字等号后开始检索，确认cookie的开始位置，方便截取)
+            cook_start = allCookies.indexOf(name+"=");
+            if(cook_start!=-1){
+                //如果返回结果不等于-1，说明cookie存在，那么就保存cookie的长度(也就是截取起始位置)
+                cook_start = cook_start + (name+"=").length;
+                //从cook的开始位置开始检索分号，返回结果就是cook的结束位置
+                cook_end = allCookies.indexOf(";",cook_start);
+                if(cook_end==-1){
+                    //如果检索不到，那么cookie的结束位置就是cookie的整体长度
+                    cook_end = allCookies.length;
+                }
+                return unescape(allCookies.substring(cook_start,cook_end));
+            }
+        }
+    }
+
+    //封装删除cookie的函数
+    function  removeCookie(name) {
+        //设置cookie的过期时间为当前时间减1，cookie就被移除了
+        setCookie(name,"删除cookie",-1);
+    }
+
+    //提交表单
+    oForm.onsubmit = function() {
+
+        setCookie(oUser.name,oUser.value,7);
+        setCookie(oPass.name,oPass.value,null);
+        setCookie(oVerify.name,oVerify.value,null);
+
+        return false;//阻止默认事件
+    }
+
+    //设置cookie
+    oGet.onclick = function(){
+        console.log(getCookie("user"));
+        getCookie("user");
+
+    }
+
+    //删除cookie
+    oDelete.onclick = function() {
+        //根据文本框的name属性移除
+        removeCookie("user");
+        removeCookie("pass");
+        removeCookie("verify");
+    }
+
+</script>
+</body>
+</html>

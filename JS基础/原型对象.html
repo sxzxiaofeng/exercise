@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function  A() {
+    }
+    function  B() {
+        this.a = a;
+    }
+    function C() {
+        if(a){
+            this.a = a;
+        }
+    }
+
+    console.log(A.prototype.a);
+    B.prototype.a = 1;
+    C.prototype.a = 1;
+
+
+</script>
+</body>
+</html>
