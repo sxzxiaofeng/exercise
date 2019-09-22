@@ -1,0 +1,38 @@
+
+.wrapper{
+    /*5张图片的总宽度*/
+    width: 500%;
+    position: absolute;
+    /*left: 0;*/
+    /*top: 0;*/
+}
+.wrapper .slide{
+    float: left;
+    /*相对于父级的20%*/
+    width: 20%;
+}
+.wrapper .slide img{
+    width: 100%;
+    /*清除图片下面间隙*/
+    display: block;
+}
+.pagination{
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    text-align: center;
+    /*清除span之间的间隙*/
+    font-size: 0;
+}
+.pagination span{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 0 3px;
+}
+.pagination .active{
+    background-color: #ff2b5b;
+}
