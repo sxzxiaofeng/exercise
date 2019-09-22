@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1px物理像素</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=0.5,maximum-scale=2,user-scalabel=yes"/>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .test{
+            width: 16rem;
+            height: 1px;
+            margin-top: 2rem;
+            background-color: #000;
+        }
+
+       /* 用css控制（媒体查询），像素比为2，元素缩放1/2=0.5倍（沿着Y轴缩放，元素横向变大）*/
+        @media only screen and (-webkit-device-pixel-ratio: 2) {
+            .test{
+                transform: scaleY(.5);
+            }
+        }
+
+        @media only screen and (-webkit-device-pixel-ratio: 3) {
+            .test{
+                transform: scaleY(.33333333333333);
+
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="test"></div>
+<script>
+        +function () {
+            var styleNode = document.createElement("style");
+            var wW = document.documentElement.clientWidth/16;
+            styleNode.innerHTML = `html{font-size: ${wW}px !important;}`;
+            document.head.appendChild(styleNode);
+        }()
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rem单位</title>
+  <!--  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>-->
+    <style>
+        html{
+            font-size: 20px;
+        }
+        body{
+            font-size: 16px;
+        }
+        #outer{
+            font-size: 30px;
+            /*rem单位只和根元素的字号大小相关*/
+            width: 3rem;//60px
+            height: 100px;
+            background-color: red;
+            /*margin: 1rem;*/
+            /*border: 0.1rem solid #000;*/
+        }
+        html{
+            font-size: 20px;
+        }
+        #inner{
+            font-size: 40px;
+            width: 2rem;//80px
+            height: 100px;
+            background-color: pink;
+        }
+        #box{
+            font-size: 50px;
+            width: 1rem;//20px
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="box"></div>
+    </div>
+</div>
+</body>
+</html>

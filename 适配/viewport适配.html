@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=0.5,maximum-scale=2,user-scalable=yes"/>
+    <title>viewport适配</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        header{
+            width: 640px;
+            height: 100px;
+            background-color: red;
+        }
+        section{
+            width: 100%;
+            overflow: hidden;
+        }
+        .left{
+            width: 400px;
+            height: 200px;
+            background-color: green;
+            float: left;
+            font-size: 30px;
+        }
+        .right{
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="outer">
+    <header></header>
+    <section>
+        <div class="left">
+            111222233333
+        </div>
+        <div class="right">
+        </div>
+    </section>
+</div>
+<script>
+    // viewport适配：是根据设备屏幕大小来改变系统的缩放
+    var picWidth = 640;
+    var wW = document.documentElement.clientWidth;
+    //计算比列，视口宽度比上图片的宽度
+    var scale = wW/picWidth;
+    //获取name为viewport的meta标签
+    var metaNode = document.querySelector("meta[name=viewport]");
+    // 把比列赋值给初始缩放值、最小、最大缩放值，让视口宽度随着设备独立像素（device-width）的宽度改变而改变
+    metaNode.content = `width=device-width,initial-scale=${scale},minimum-scale=${scale},maximum-scale=${scale},user-scalabel=yes`;
+</script>
+</body>
+</html>

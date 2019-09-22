@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .outer{
+            width: 5rem;
+            height: 5rem;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer"></div>
+    <script>
+        (function () {
+            var styleNode = document.createElement("style");
+            var wW = document.documentElement.clientWidth/16;
+            styleNode.innerHTML = `
+            html{
+                font-size: ${wW}px !important;
+            }
+        `;
+            document.head.appendChild(styleNode);
+        })()
+
+    </script>
+</body>
+</html>

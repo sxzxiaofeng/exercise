@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=0.5,maximum-scale=2,user-scalable=yes"/>
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .test{
+            width: 16rem;
+            height: 1px;
+            margin-top: 2rem;
+            background-color: black;
+        }
+
+    </style>
+</head>
+<body>
+<div class="test"></div>
+<script>
+    (function(){
+        //获取像素比，因为像素比为1的屏幕没有dpr，所以给它一个默认值1
+        var dpr = window.devicePixelRatio ||1;
+        //创建节点
+        var styleNode = document.createElement("style");
+        //获取视口宽度,因为1px的物理像素线，是按照dpr来缩放的，所以先乘以dpr(像素比)，这样才不会影响到其他元素
+        var Ww = document.documentElement.clientWidth * dpr /16;
+        styleNode.innerHTML =
+            `
+              html{
+            font-size: ${Ww}px !important;
+             }`;
+        document.head.appendChild(styleNode);
+        //计算比列
+        var scale = 1/dpr;
+        var meta = document.querySelector("meta[name=viewport]");
+        //把比例赋值给初始缩放属性
+        meta.content = `width=device-width,initial-scale=${scale},minimum-scale=0.5,maximum-scale=2,user-scalabel=yes`;
+    })()
+</script>
+</body>
+</html>
