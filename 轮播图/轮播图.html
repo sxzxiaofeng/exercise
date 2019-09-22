@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>轮播图</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        /*禁用系统滚动条*/
+        html, body, #app{
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .container{
+            width: 100%;
+            position: relative;
+            height: 176px;
+        }
+        .wrapper{
+             /*5张图片的总宽度*/
+            width: 500%;
+            position: absolute;
+            /*left: 0;*/
+            /*top: 0;*/
+        }
+        .wrapper .slide{
+            float: left;
+            /*相对于父级的20%*/
+            width: 20%;
+        }
+        .wrapper .slide img{
+            width: 100%;
+            /*清除图片下面间隙*/
+            display: block;
+        }
+        .nav{
+            width: 100%;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            text-align: center;
+            /*清除span之间的间隙*/
+            font-size: 0;
+        }
+        .nav span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 3px;
+        }
+        .nav .active{
+            background-color: blue;
+        }
+    </style>
+    <script src="../js/transformCSS.js"></script>
+</head>
+<body style = "height: 2000px">
+    <div id="app">
+        <div id="swiper">
+        <div class="container">
+            <!--外层包裹元素-->
+            <div class="wrapper">
+                <div class="slide"><img src="img/1.jpg" alt=""></div>
+                <div class="slide"><img src="img/2.jpg" alt=""></div>
+                <div class="slide"><img src="img/3.jpg" alt=""></div>
+                <div class="slide"><img src="img/4.jpg" alt=""></div>
+            </div>
+
+            <!--小圆点导航-->
+            <div class="nav">
+                <!--<span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>-->
+            </div>
+        </div>
+        </div>
+    </div>
+    <script>
+        var app = document.querySelector("#app");
+        var container = document.querySelector(".container");
+        var wrapper = container.querySelector(".wrapper");
+        var nav = document.getElementsByClassName("nav");
+        var dots = document.getElementsByTagName("span");
+
+        var index = 0;
+        //保存slide元素的length属性
+        var len = wrapper.querySelectorAll(".slide").length;
+        //把包裹元素wrapper里的图片复制一份（做无缝滚动）
+        wrapper.innerHTML += wrapper.innerHTML;
+        //重新获取新的length
+        var length = wrapper.querySelectorAll(".slide").length;
+        var slides = container.querySelectorAll(".wrapper .slide");
+        container.timer = null;
+
+        //定义两个状态变量做开关
+        var isHori = null;
+        var isFirst = null;
+
+        //阻止默认事件
+ /*       app.addEventListener("touchstart",function(ev) {
+            ev.preventDefault();
+        });*/
+
+        //初始化，动态设置元素的样式
+        container.init = function(){
+            //设置wrapper的宽度
+            wrapper.style.width = length + "00%";
+            //设置slide单个元素的宽度
+            for (var i = 0; i <length ; i++) {
+                //单个slide元素占图片的1/8（8张图片）
+                slides[i].style.width = 100 / length + "%";
+            }
+
+            //设置包裹元素container的高度，等图片加载完才能获取到
+            window.addEventListener("load", function(){
+                container.style.height = slides[0].offsetHeight + "px";
+            });
+
+            //设置导航圆点
+            for (var i = 0; i <len; i++) {
+                var span = document.createElement("span");
+                // console.log(span);
+                if(i==0){
+                    span.className = "active";
+                }
+                nav[0].appendChild(span);
+            }
+        };
+        //调用初始化函数
+        container.init();
+
+        //扩展一个自动播放图片的函数
+        container.autoPlay = function() {
+            //清除计时器
+            clearInterval(this.timer);
+            container.timer = setInterval(function () {
+                //进入计时器让index加加
+                index++;
+                container.changeSlide(index);
+            },1500)
+        };
+        //调用自动播放函数
+        container.autoPlay();
+
+        //扩展一个切换图片的函数
+        container.changeSlide = function(index,isTransition) {
+            //如果等于undefined,即不传参数的话,设置初始值为true(默认需要过渡动画)
+            if(isTransition === undefined){
+                isTransition = true;
+            }
+            //判断滑动的临界值
+            if(index <= 0){
+                index = 0;
+            }
+            if(index >= length-1){
+                index = length -1;
+            }
+            if(isTransition){
+                //设置过渡动画
+                wrapper.style.transition = "all 0.5s";
+            }else {
+                wrapper.style.transition = "none";
+            }
+
+            //计算当前下标索引相对应的left值
+            var newLeft = -container.offsetWidth * index;
+            // wrapper.style.left = newLeft + "px";
+
+            transformCSS(wrapper,"translateX",newLeft);
+
+            for (var i = 0; i < dots.length; i++) {
+                // console.log(i);
+                dots[i].className = "";
+            }
+            //因为当前有8张图片，所以小圆点index的值要对len进行取余(得到0,1,2,3)
+            // console.log("index:"+ index);
+            // console.log("len:"+len);
+            // console.log(index % len);
+            dots[index % len].className = "active";
+
+        };
+
+        //绑定touchstart事件，绑定在最外层的包裹元素container上
+            container.addEventListener("touchstart",function (ev) {
+                //获取手指按下的时间
+                this.startTime = Date.now();
+                //判断当前索引,如果图片走到左侧尽头
+                if(index == 0){
+                    //让图片回到第五张
+                    index = len;
+                    // var translateX = -container.offsetWidth *index;
+                    // transformCSS(wrapper,"translateX",translateX);
+
+                    //调用函数切换图片,不需要过渡动画,切换图片有过渡,会有延迟
+                    container.changeSlide(index,false);
+                }
+                //如果图片走到右侧边缘，让图片回到中间
+                if(index == length - 1){
+                    //让图片回到中间（第四张）
+                    index = len-1;
+                    // var translateX = -container.offsetWidth *index;
+                    // transformCSS(wrapper,"translateX",translateX);
+
+                    //调用函数切换图片
+                    container.changeSlide(index,false);
+                }
+
+              /*  //获取手指按下的坐标位置，保存在container对象中
+                this.x = ev.changedTouches[0].clientX;
+                //获取包裹元素wrapper的offsetLeft值(保存在对象中，方便随时用)即wrapper移动的距离
+                this.left = wrapper.offsetLeft;
+               */
+
+                this.x = ev.changedTouches[0].clientX;
+                this.y = ev.changedTouches[0].clientY;
+                //获取起始位置，wrapper移动的距离
+                this.left = transformCSS(wrapper,"translateX");
+                //清除过渡动画对touchmove事件的影响
+                wrapper.style.transition = "none";
+                //清除计时器
+                clearInterval(this.timer);
+                //填充状态变量
+                isFirst = true;
+            });
+
+            //绑定touchmove事件
+            container.addEventListener("touchmove",function (ev) {
+                //获取手指移动之后的坐标位置
+                this._x = ev.changedTouches[0].clientX;
+                //获取Y轴垂直方向坐标
+                this._y = ev.changedTouches[0].clientY;
+
+                //计算水平方向和垂直方向移动距离差值，取绝对值(值为正整数)
+                var dissX = Math.abs(this._x - this.x);
+                var dissY = Math.abs(this._y - this.y);
+
+                //如果是第一次按下手指才进入判断(即只判断第一次移动)
+                if(isFirst){
+                        isFirst = false;//锁住开关，只判断一次
+                        //若水平大于垂直，则说明是水平移动，改变isHori状态
+                        if(dissX > dissY){
+                            isHori = true;
+                        }
+                        //若水平小于垂直，则说明是垂直方向
+                        if(dissX < dissY){
+                            isHori = false;
+                        }
+                    }
+                    if(!isHori) return;//如果是垂直，则退出函数，不执行
+
+                //wrapper移动的距离，等于手指移动后的距离减去手指按下的坐标，加上包裹元素                   container的offsetLeft距离
+                // wrapper.style.left = this._x - this.x + this.left + "px";
+
+                var newLeft = this._x - this.x + this.left;
+                //给wrapper设置translateX值
+                transformCSS(wrapper,"translateX",newLeft);
+                //阻止滚轮默认事件
+                ev.preventDefault();
+            });
+
+            //绑定touchend事件，判断当前是左滑还是右滑
+            container.addEventListener("touchend",function (ev) {
+                //获取手指离开时的坐标
+                this._x = ev.changedTouches[0].clientX;
+                //获取手指离开时的时间
+                this.endTime = Date.now();
+                //获取时间差,用来是否满足快速滑动效果
+                var dissTime = this.endTime - this.startTime;
+                //获取手指按下到离开的距离
+                var dissX = Math.abs(this._x - this.x);
+                //如果手指滑动的距离，超过包裹元素的一半，并且时间小于300毫秒就进入判断
+                if(dissX >= container.offsetWidth/2 || dissTime <300){
+
+                    if(this._x > this.x){
+                        index --;
+                    }
+                    if(this._x < this.x){
+                        index ++;
+                    }
+                }
+                //调用图片切换函数(手指抬起需要有过渡动画)
+                  this.changeSlide(index);
+                //调用计时器
+                this.autoPlay();
+            });
+
+        //绑定动画结束事件
+        wrapper.addEventListener("transitionend",function () {
+            if(index >= length-1){
+                //如果图片走到最右侧，让图片回到中间那张,实现无缝滚动
+                index = len;
+                //清除动画
+                // wrapper.style.transition = "none";
+                // var translateX = -container.offsetWidth *index;
+                // transformCSS(wrapper,"translateX",translateX);
+                container.changeSlide(index,false);
+            }
+        })
+    </script>
+</body>
+</html>
